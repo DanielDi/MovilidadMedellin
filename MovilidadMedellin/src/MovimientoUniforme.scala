@@ -1,5 +1,5 @@
 
 
 trait MovimientoUniforme {
-  
+  def formaAumentoPosicion
 }
