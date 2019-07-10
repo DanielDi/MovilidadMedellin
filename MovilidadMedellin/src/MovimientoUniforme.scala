@@ -1,0 +1,5 @@
+
+
+trait MovimientoUniforme {
+  def formaAumentoPosicion
+}
