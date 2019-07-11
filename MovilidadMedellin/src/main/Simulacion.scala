@@ -1,4 +1,7 @@
+package main
 import scala.collection.mutable.ArrayBuffer
+import punto.Via
+import movil.Vehiculo
 
 object Simulacion extends Runnable {
   var t = 0
