@@ -1,11 +1,11 @@
-
-
 package movil
 
-abstract class Movil(posc: Any, vel: Any)  {
+import punto.Velocidad
+
+abstract class Movil(posc: Any,vel: Velocidad)  {
     
   def aumentarPosc(posc: Any)  
   
-  def direccionAngulo
+  def direccionAngulo() = vel.direccion
     
 }
