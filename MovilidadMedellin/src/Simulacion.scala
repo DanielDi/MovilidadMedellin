@@ -1,15 +1,16 @@
-
+import scala.collection.mutable.ArrayBuffer
 
 object Simulacion extends Runnable {
-  
+  var t = 0
   var dt = 0
   var tRefresh = 0
-  var vehiculos = Array[Int]()
-  var velocidad = Array[Int]()
-  var proporciones = Array[Int]()
+  var vehiculosMin = 0
+  var vehiculosMax = 0
+  var velMin = 0
+  var velMax = 0
   
-  var listaDeVehiculos = List[Vehiculo]()
-  var listaDeVias = List[Via]()
+  var arrayDeVehiculos = ArrayBuffer[Vehiculo]()
+  var arrayDeVias = ArrayBuffer[Via]()
   
   def run() {
     while(true) {
