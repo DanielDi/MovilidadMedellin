@@ -2,6 +2,6 @@ package movil
 
 import punto.Velocidad
 
-class Carro(placa: String, posc: Any, velocidad: Velocidad) extends Vehiculo(placa, posc, velocidad) with MovimientoUniforme{
+class Carro(posc: Any, velocidad: Velocidad) extends Vehiculo(posc, velocidad) with MovimientoUniforme{
   
 }

@@ -1,7 +1,6 @@
 package movil
 
 trait MovimientoUniforme {
-  def formaAumentoPosicion{
-    
-  }
+  
+  def formaAumentoPosicion = {}
 }

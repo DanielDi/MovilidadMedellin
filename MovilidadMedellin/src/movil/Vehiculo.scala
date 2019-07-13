@@ -1,11 +1,15 @@
 package movil
 
+import punto.Velocidad // (magnitud, angulo)
+import main.Simulacion
 import punto.Velocidad
+import punto.Angulo
 
-class Vehiculo(placa: String, pos: Any, vel: Velocidad) extends Movil(pos,vel) with MovimientoUniforme {
-  def aumentarPosc(posc: Any)  
+class Vehiculo(pos: Any, vel: Velocidad) extends Movil(pos,vel) with MovimientoUniforme {
   
-  def direccionAngulo
+  var placa: String = ""
   
-  def formaAumentoPosicion
+  def aumentarPosc(posc: Any) ={}
+  
 }
+
