@@ -17,8 +17,7 @@ class Vehiculo(pos: Any, vel: Velocidad) extends Movil(pos,vel) with MovimientoU
 object Vehiculo {
   
   
-  var totalVehiculos = Simulacion.vehiculosMin + 
-  Random.nextInt(Simulacion.vehiculosMax - Simulacion.vehiculosMin + 1)
+  var totalVehiculos = Simulacion.vehiculosMin + Random.nextInt(Simulacion.vehiculosMax - Simulacion.vehiculosMin + 1)
   
   
   
@@ -34,6 +33,8 @@ object Vehiculo {
   var cMotos = 0
   var cMotoTaxis = 0
   
+  def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
+  
   while (Simulacion.arrayDeVehiculos.length != totalVehiculos) {
     
 	  var r = Random.nextInt(5)
@@ -47,25 +48,25 @@ object Vehiculo {
   		}		
   		case 1 => {
   		  if (cCamiones < camiones) {
-  			  Simulacion.arrayDeVehiculos :+= new Camion(0 , new Velocidad(0, new Angulo(0))) 
+  			  Simulacion.arrayDeVehiculos :+= new Camion(0 , new Velocidad(genVelocidad(), new Angulo(0))) 
   			  cCamiones += 1
   		  }
   		}		
   		case 2 => {
   		  if (cCarros < carros) {
-  			  Simulacion.arrayDeVehiculos :+= new Carro(0 , new Velocidad(0, new Angulo(0)))
+  			  Simulacion.arrayDeVehiculos :+= new Carro(0 , new Velocidad(genVelocidad(), new Angulo(0)))
   		    cCarros += 1
   		  }
   		}
   		case 3 => {
   		  if (cMotos < motos) {
-  			  Simulacion.arrayDeVehiculos :+= new Moto(0 , new Velocidad(0, new Angulo(0)))
+  			  Simulacion.arrayDeVehiculos :+= new Moto(0 , new Velocidad(genVelocidad(), new Angulo(0)))
   		    cMotos += 1
   		  }
   		}
   		case 4 => {
   		  if (cMotoTaxis < motoTaxis) {
-  			  Simulacion.arrayDeVehiculos :+= new MotoTaxi(0 , new Velocidad(0, new Angulo(0)))
+  			  Simulacion.arrayDeVehiculos :+= new MotoTaxi(0 , new Velocidad(genVelocidad(), new Angulo(0)))
   			  cMotoTaxis += 1
   		  }
   		}
