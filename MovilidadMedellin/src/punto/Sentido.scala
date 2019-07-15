@@ -1,16 +1,14 @@
 package punto
 
-class Sentido(var unavia: Boolean, var doblevia: Boolean){
+class Sentido(private var unavia: Boolean, private var doblevia: Boolean){
 
 }
 
 object Sentido {
   
-  private def dobleVia(){
-    new Sentido(false,true)
-  }
+  def dobleVia() = new Sentido(false,true)
+
   
-  private def unaVia(){
-    new Sentido(true,false)
-  }
+  def unaVia() = new Sentido(true,false)
+  
 }
