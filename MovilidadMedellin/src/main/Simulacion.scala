@@ -1,20 +1,15 @@
 package main
 
-<<<<<<< HEAD
 import scala.collection.mutable.ArrayBuffer
-=======
+
 import movil.Vehiculo
->>>>>>> refs/heads/master
 import punto.Via
 import movil.Vehiculo
-<<<<<<< HEAD
 import punto.Interseccion
 import punto.Via
 import punto.TipoVia
 import punto.Sentido
-=======
 import scala.collection.mutable.ArrayBuffer
->>>>>>> refs/heads/master
 
 object Simulacion extends Runnable {
   var t = 0
