@@ -1,10 +1,15 @@
 package movil
 
 import punto.Velocidad
+import punto.Interseccion
 import scala.util.Random
 
-class Bus(posc: Any, velocidad: Velocidad) 
-extends Vehiculo(posc,velocidad) with MovimientoUniforme{
+class Bus(posInicial: Interseccion, posFinal: Interseccion, velocidad: Velocidad) 
+extends Vehiculo(posInicial, posFinal,velocidad) with MovimientoUniforme{
+  
+  
+  
+  
   
   for (i <- 0 to 5) {
     if (i < 3) {
