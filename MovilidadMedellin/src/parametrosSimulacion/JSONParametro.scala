@@ -1,5 +1,5 @@
 package parametrosSimulacion
 
-case class JSONParametro() {
+case class JSONParametro(parametrosSimulacion: ParametrosSimulacion) {
   
 }
