@@ -1,29 +1,44 @@
 package main
 
+<<<<<<< HEAD
 import scala.collection.mutable.ArrayBuffer
+=======
+import movil.Vehiculo
+>>>>>>> refs/heads/master
 import punto.Via
 import movil.Vehiculo
+<<<<<<< HEAD
 import punto.Interseccion
 import punto.Via
 import punto.TipoVia
 import punto.Sentido
+=======
+import scala.collection.mutable.ArrayBuffer
+>>>>>>> refs/heads/master
 
 object Simulacion extends Runnable {
   var t = 0
   var dt = 0
   var tRefresh = 0
   var vehiculosMin = 0
-  var vehiculosMax = 0
+  var vehiculosMax = 10
   var velMin = 0
   var velMax = 0
+  var propCarros = 0.2
+  var propMotos = 0.3
+  var propBuses = 0.2
+  var propCamiones = 0.2
+  var propMotoTaxis = 0.1
   
   var arrayDeVehiculos = ArrayBuffer[Vehiculo]()
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
   
+  var objVehiculo = Vehiculo
+  
   def run() {
     while(true) {
-//      listaDeVehiculos.foreach(_.mover(dt))
+//      arrayDeVehiculos.foreach(_.mover(dt))
 //      t += dt
 //      Grafico.graficarVehiculos(listaDeVehiculos)
 //      
