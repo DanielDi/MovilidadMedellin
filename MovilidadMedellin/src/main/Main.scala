@@ -15,4 +15,5 @@ object Main extends App {
 
   Simulacion.crearGrafico
   Vehiculo.crearVehiculos
+  Simulacion.crearGrafo
 }

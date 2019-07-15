@@ -12,7 +12,9 @@ class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion, var vel
   
   var placa: String = ""
   
-  def aumentarPosc(posc: Interseccion) = {}
+  def aumentarPosc(dt: Int) = {
+    
+  }
   
 }
 
@@ -46,6 +48,7 @@ object Vehiculo {
   def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
  
   def crearVehiculos(){
+    Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(1),Simulacion.arrayDeIntersecciones(2),new Velocidad(30,new Angulo(0))))
     while (Simulacion.arrayDeVehiculos.length != totalVehiculos) {
       
   	  var r = Random.nextInt(5)
@@ -55,7 +58,7 @@ object Vehiculo {
     		case 0 => {		  
     		  if (cBuses < buses) {
     		    
-    			  Simulacion.arrayDeVehiculos += new Bus(posiciones._1, posiciones._2, new Velocidad(0, new Angulo(0)))
+    			  Simulacion.arrayDeVehiculos += new Bus(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
     			  cBuses += 1	    
     		  }
     		}		

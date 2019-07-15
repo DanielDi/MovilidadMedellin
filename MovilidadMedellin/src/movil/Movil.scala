@@ -9,7 +9,7 @@ abstract class Movil  {
   var posFinal: Interseccion
   var vel: Velocidad
   
-  def aumentarPosc(posc: Interseccion)  
+  def aumentarPosc(dt: Int)  
   
   def direccionAngulo() = vel.direccion
     

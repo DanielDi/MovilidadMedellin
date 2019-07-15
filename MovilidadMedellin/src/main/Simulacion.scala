@@ -11,6 +11,8 @@ import punto.TipoVia
 import punto.Sentido
 import scala.collection.mutable.ArrayBuffer
 import main.Main.parametrosSimulacion
+import movil.Carro
+
 
 object Simulacion extends Runnable {
   
@@ -27,18 +29,22 @@ object Simulacion extends Runnable {
   var propCamiones = parametrosSimulacion.proporciones.camiones
   var propMotoTaxis = parametrosSimulacion.proporciones.motoTaxis
 
-  var arrayDeVehiculos = ArrayBuffer[Vehiculo]()
+  var arrayDeVehiculos = ArrayBuffer[Vehiculo]()  
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
   
   def run() {
     while(true) {
-//      arrayDeVehiculos.foreach(_.mover(dt))
+      arrayDeVehiculos.foreach(_.aumentarPosc(dt))
 //      t += dt
 //      Grafico.graficarVehiculos(listaDeVehiculos)
 //      
 //      Thread.sleep(tRefresh)
     }
+  }
+  
+  def crearGrafo(){
+    GrafoVia.construir(arrayDeVias)
   }
   
   def crearGrafico{
@@ -162,6 +168,7 @@ object Simulacion extends Runnable {
       new Via(agua, santafe, 60, TipoVia("Calle"), Sentido.dobleVia, "12S", "80"),   
       new Via(viva, pqEnv, 60, TipoVia("Calle"), Sentido.dobleVia, "37S", "37S"), 
       new Via(viva, gu_37S, 60, TipoVia("Calle"), Sentido.dobleVia, "63", "37S")) 
+     
   }
   
 }
