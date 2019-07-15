@@ -1,0 +1,5 @@
+package manejoJSON
+
+class ManejoJSON {
+  
+}
