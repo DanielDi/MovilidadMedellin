@@ -37,7 +37,7 @@ object Simulacion extends Runnable {
     while(true) {
       arrayDeVehiculos.foreach(_.aumentarPosc(dt))
 //      t += dt
-//      Grafico.graficarVehiculos(listaDeVehiculos)
+//      Grafico.graficarVehiculos(arrayDeVehiculos)
 //      
 //      Thread.sleep(tRefresh)
     }
@@ -47,12 +47,13 @@ object Simulacion extends Runnable {
     GrafoVia.construir(arrayDeVias)
   }
   
-  def crearGrafico{
+  def crearGrafico() = {
      iniciarVias
-     var grafico = new Grafico
-        grafico.graficarVias(arrayDeVias,arrayDeIntersecciones)
+     Grafico.graficarVias(arrayDeVias,arrayDeIntersecciones)
    }
-    
+   
+  
+  
   def iniciarVias{
     val niquia = new Interseccion(300, 12000, "Niquia")     
     val lauraAuto = new Interseccion(2400, 11400, "M. Laura Auto")     
