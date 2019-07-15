@@ -2,6 +2,7 @@ package main
 
 import punto.Interseccion
 import punto.Via
+import scala.collection.mutable.ArrayBuffer
 import org.jfree.chart.ChartFactory
 import org.jfree.data.xy.XYSeries
 import org.jfree.data.xy.XYSeriesCollection
@@ -19,8 +20,9 @@ import org.jfree.chart.labels.StandardXYItemLabelGenerator
 import org.jfree.chart.annotations.XYTextAnnotation
 
 class Grafico {
-  //Dibujar la gráfica
-  //fn para desempaquetar las vias 
-  //
-  var dataset = new XYSeriesCollection()
+  
+  def graficoInicial(intersecciones:ArrayBuffer[Interseccion]){
+    //Creación de las lineas de las vías
+    
+  }
 }
