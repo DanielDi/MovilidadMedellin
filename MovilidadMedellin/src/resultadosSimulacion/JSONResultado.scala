@@ -1,5 +1,5 @@
 package resultadosSimulacion
 
-case class JSONResultado() {
+case class JSONResultado(resultadosSimulacion: ResultadosSimulacion) {
   
 }
