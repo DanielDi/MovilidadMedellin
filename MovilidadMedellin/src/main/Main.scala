@@ -15,10 +15,5 @@ object Main extends App {
   println(parametrosSimulacion.vehiculos)
   println(parametrosSimulacion.velocidad)
   manejoJSON.escribirArchivoResultados(ruta + archivoResultados)
-
-  Simulacion.iniciarVias
-  var simul = Simulacion
-  Simulacion.arrayDeVehiculos.foreach(x => println(x.placa))
-
   Simulacion.crearGrafico
 }

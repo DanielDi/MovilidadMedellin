@@ -29,7 +29,7 @@ object Simulacion extends Runnable {
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
   
-  var objVehiculo = Vehiculo
+//  var objVehiculo = Vehiculo
   
   def run() {
     while(true) {
