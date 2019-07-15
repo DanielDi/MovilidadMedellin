@@ -22,13 +22,11 @@ object Simulacion extends Runnable {
   var arrayDeVehiculos = ArrayBuffer[Vehiculo]()
   var arrayDeVias = ArrayBuffer[Via]()
   
-  var obj = Vehiculo
-  println(Vehiculo.totalVehiculos)
-  println(arrayDeVehiculos.mkString(", "))
+  var objVehiculo = Vehiculo
   
   def run() {
     while(true) {
-//      listaDeVehiculos.foreach(_.mover(dt))
+//      arrayDeVehiculos.foreach(_.mover(dt))
 //      t += dt
 //      Grafico.graficarVehiculos(listaDeVehiculos)
 //      
