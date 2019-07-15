@@ -24,7 +24,7 @@ object Simulacion extends Runnable {
   var propBuses = 0.2
   var propCamiones = 0.2
   var propMotoTaxis = 0.1
-  
+
   var arrayDeVehiculos = ArrayBuffer[Vehiculo]()
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
