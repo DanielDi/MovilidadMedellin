@@ -12,10 +12,7 @@ object Main extends App {
   var manejoJSON = new ManejoJSON()
   var parametrosSimulacion = manejoJSON.leerArchivo(ruta + archivoParametros)
   manejoJSON.escribirArchivoResultados(ruta + archivoResultados)
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/DanielDi/MovilidadMedellin.git
   Simulacion.crearGrafico
   Vehiculo.crearVehiculos
 }

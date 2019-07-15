@@ -31,11 +31,8 @@ object Simulacion extends Runnable {
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
   
-<<<<<<< HEAD
 //  var objVehiculo = Vehiculo
   
-=======
->>>>>>> branch 'master' of https://github.com/DanielDi/MovilidadMedellin.git
   def run() {
     while(true) {
 //      arrayDeVehiculos.foreach(_.mover(dt))
