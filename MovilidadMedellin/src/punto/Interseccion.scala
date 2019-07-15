@@ -10,4 +10,7 @@ extends Punto(xI,yI) {
   def this(x:Double,y:Double){
     this(x,y,"")
   }
+  
+  override
+  def toString()= this.nombre
 }

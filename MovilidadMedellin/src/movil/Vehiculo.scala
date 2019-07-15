@@ -12,7 +12,9 @@ class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion, var vel
   
   var placa: String = ""
   
-  def aumentarPosc(posc: Interseccion) = {}
+  def aumentarPosc(dt: Int) = {
+    
+  }
   
 }
 
@@ -44,44 +46,47 @@ object Vehiculo {
   var cMotoTaxis = 0
   
   def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
-  
-  while (Simulacion.arrayDeVehiculos.length != totalVehiculos) {
-    
-	  var r = Random.nextInt(5)
-		var posiciones = genPosiciones()
-	  
-	  r match {
-  		case 0 => {		  
-  		  if (cBuses < buses) {
-  		    
-  			  Simulacion.arrayDeVehiculos += new Bus(posiciones._1, posiciones._2, new Velocidad(0, new Angulo(0)))
-  			  cBuses += 1	    
-  		  }
-  		}		
-  		case 1 => {
-  		  if (cCamiones < camiones) {
-  			  Simulacion.arrayDeVehiculos :+= new Camion(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0))) 
-  			  cCamiones += 1
-  		  }
-  		}		
-  		case 2 => {
-  		  if (cCarros < carros) {
-  			  Simulacion.arrayDeVehiculos :+= new Carro(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
-  		    cCarros += 1
-  		  }
-  		}
-  		case 3 => {
-  		  if (cMotos < motos) {
-  			  Simulacion.arrayDeVehiculos :+= new Moto(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
-  		    cMotos += 1
-  		  }
-  		}
-  		case 4 => {
-  		  if (cMotoTaxis < motoTaxis) {
-  			  Simulacion.arrayDeVehiculos :+= new MotoTaxi(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
-  			  cMotoTaxis += 1
-  		  }
-  		}
-	  }
-  }  
+ 
+  def crearVehiculos(){
+    Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(1),Simulacion.arrayDeIntersecciones(2),new Velocidad(30,new Angulo(0))))
+    while (Simulacion.arrayDeVehiculos.length != totalVehiculos) {
+      
+  	  var r = Random.nextInt(5)
+  		var posiciones = genPosiciones()
+  	  
+  	  r match {
+    		case 0 => {		  
+    		  if (cBuses < buses) {
+    		    
+    			  Simulacion.arrayDeVehiculos += new Bus(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  cBuses += 1	    
+    		  }
+    		}		
+    		case 1 => {
+    		  if (cCamiones < camiones) {
+    			  Simulacion.arrayDeVehiculos :+= new Camion(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  cCamiones += 1
+    		  }
+    		}		
+    		case 2 => {
+    		  if (cCarros < carros) {
+    			  Simulacion.arrayDeVehiculos :+= new Carro(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    		    cCarros += 1
+    		  }
+    		}
+    		case 3 => {
+    		  if (cMotos < motos) {
+    			  Simulacion.arrayDeVehiculos :+= new Moto(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    		    cMotos += 1
+    		  }
+    		}
+    		case 4 => {
+    		  if (cMotoTaxis < motoTaxis) {
+    			  Simulacion.arrayDeVehiculos :+= new MotoTaxi(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  cMotoTaxis += 1
+    		  }
+    		}
+  	  }
+    }
+  }
 }
