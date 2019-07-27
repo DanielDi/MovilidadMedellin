@@ -35,8 +35,7 @@ object Grafico extends KeyListener{
     
   def graficarVias(vias:ArrayBuffer[Via], intersecciones:ArrayBuffer[Interseccion]){
     
-    render.setStroke(new BasicStroke(4))           //Asigna grosor  
-//    render.setPaint(Color.lightGray)               // Color linea
+    render.setStroke(new BasicStroke(4))           //Asigna grosor
     render.setBaseShapesVisible(true)              //Poner visibilidad de los puntos
     render.setBaseSeriesVisible(true)              //Hacer visibles las lineas
     
@@ -88,6 +87,7 @@ object Grafico extends KeyListener{
       render.setSeriesShapesVisible(n, true)
       n += 1
     })
+
   }
   
   def colorVehiculo(v: Vehiculo): Color = v match {

@@ -1,6 +1,10 @@
 package punto
 
-class Sentido(private var unavia: Boolean, private var doblevia: Boolean){
+class Sentido(private var _unavia: Boolean, private var _doblevia: Boolean){
+  
+  def unavia = _unavia
+  
+  def doblevia = _doblevia
 
 }
 

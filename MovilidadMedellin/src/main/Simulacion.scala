@@ -11,7 +11,6 @@ import punto.TipoVia
 import punto.Sentido
 import scala.collection.mutable.ArrayBuffer
 import main.Main.parametrosSimulacion
-import movil.Carro
 
 
 object Simulacion extends Runnable {
@@ -36,10 +35,10 @@ object Simulacion extends Runnable {
   def run() {
     while(true) {
       arrayDeVehiculos.foreach(_.aumentarPosc(dt))
-//      t += dt
-//      Grafico.graficarVehiculos(arrayDeVehiculos)
-//      
-//      Thread.sleep(tRefresh)
+      t += dt
+      Grafico.graficarVehiculos(arrayDeVehiculos)
+      
+      Thread.sleep(tRefresh)
     }
   }
   
