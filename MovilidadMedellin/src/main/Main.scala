@@ -14,6 +14,6 @@ object Main extends App {
   manejoJSON.escribirArchivoResultados(ruta + archivoResultados)
 
   Simulacion.crearGrafico
-  Vehiculo.crearVehiculos
   Simulacion.crearGrafo
+  Vehiculo.crearVehiculos
 }
