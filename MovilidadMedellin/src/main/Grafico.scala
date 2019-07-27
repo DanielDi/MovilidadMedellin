@@ -2,7 +2,7 @@ package main
 
 import punto.Interseccion
 import punto.Via
-import movil.Vehiculo
+import movil._
 import scala.collection.mutable.ArrayBuffer
 import org.jfree.chart.ChartFactory
 import org.jfree.data.xy.XYSeries
@@ -29,27 +29,31 @@ object Grafico extends KeyListener{
     
     var graficaPlot = grafica.getXYPlot() 
     
-    var render = new XYLineAndShapeRenderer()  // Para el diseño de las lineas
+    var render = new XYLineAndShapeRenderer()      // Para el diseño de las lineas
+    
+    var n = 0                                      //Variable auxiliar para asignar ID a los puntos
     
   def graficarVias(vias:ArrayBuffer[Via], intersecciones:ArrayBuffer[Interseccion]){
     
-    render.setStroke(new BasicStroke(4)) //Asigna grosor  
-    render.setPaint(Color.lightGray) // Color linea
-    render.setBaseShapesVisible(true) //Poner o quitar visibilidad de los puntos
-    render.setBaseSeriesVisible(true) //Hacer visibles las lineas
+    render.setStroke(new BasicStroke(4))           //Asigna grosor  
+//    render.setPaint(Color.lightGray)               // Color linea
+    render.setBaseShapesVisible(true)              //Poner visibilidad de los puntos
+    render.setBaseSeriesVisible(true)              //Hacer visibles las lineas
     
-    //Creación de las lineas de las vías
-    var n = 0
+                                                  //Creación de las lineas de las vías
+                                       
     vias.foreach({x => val via = new XYSeries(n)
       via.add(x.interO.xI,x.interO.yI)
       via.add(x.interF.xI, x.interF.yI)
       dataset.addSeries(via)
       render.setSeriesShapesVisible(n, false)
+      render.setSeriesPaint(n,Color.lightGray)
       n += 1
     })
     
     //Añadir intersecciones a la gráfica
-    intersecciones.foreach({x => val interseccion = new XYTextAnnotation(x.nombre,x.xI,x.yI+0.1)
+    intersecciones.foreach({
+      x => val interseccion = new XYTextAnnotation(x.nombre,x.xI,x.yI+0.1)
       graficaPlot.addAnnotation(interseccion)
     })
 
@@ -76,27 +80,34 @@ object Grafico extends KeyListener{
   }
   
   def graficarVehiculos(vehiculos: ArrayBuffer[Vehiculo]){
-    var m = 1000
-    vehiculos.foreach({x => val vehiculo = new XYSeries(m)
+    vehiculos.foreach({x => val vehiculo = new XYSeries(n)
       vehiculo.add(x.posInicial.xI,x.posInicial.yI)
       dataset.addSeries(vehiculo)
-      println(x.placa)
-//      render.set(Color.BLACK)
-      render.setSeriesShapesVisible(m, true)
-      m += 1
+      render.setSeriesPaint(n, colorVehiculo(x))
+      println(x.getClass)
+      render.setSeriesShapesVisible(n, true)
+      n += 1
     })
+  }
+  
+  def colorVehiculo(v: Vehiculo): Color = v match {
+    case v: Bus => Color.BLUE
+    case v: Camion => Color.RED
+    case v: Carro => Color.GREEN
+    case v: Moto => Color.MAGENTA
+    case v: MotoTaxi => Color.YELLOW
   }
   
   def keyTyped(x: KeyEvent) = {}
   def keyReleased(x : KeyEvent) = {}
-    def keyPressed(e: KeyEvent) {
-      var key = e.getKeyCode();
-      if(key == KeyEvent.VK_F5){
-        
-      }
-      else if(key == KeyEvent.VK_F6){
-        
-      }
+  def keyPressed(e: KeyEvent) {
+    var key = e.getKeyCode();
+    if(key == KeyEvent.VK_F5){
+      
     }
+    else if(key == KeyEvent.VK_F6){
+      
+    }
+  }
 }
 
