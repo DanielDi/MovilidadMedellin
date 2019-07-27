@@ -19,14 +19,17 @@ abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion
   var radioLimite = vel.magnitud * Simulacion.dt
 
   def aumentarPosc(dt: Int) = {
-    var d= distEntreIntersec(posInicial, path.front) // falta lo de ayer
+    var d= distEntreIntersec(posInicial, path.front) //
     if(d>radioLimite){
-    var tup = formaAumentoPosicion(this.vel, dt)
-    this.posInicial.xI = this.posInicial.xI + tup._1
-    this.posInicial.yI = this.posInicial.yI + tup._2
+      var tup = formaAumentoPosicion(this.vel, dt)
+      this.posInicial.xI = this.posInicial.xI + tup._1
+      this.posInicial.yI = this.posInicial.yI + tup._2
     }else{
       this.posInicial.xI = path.front.xI
       this.posFinal.yI = path.front.yI
+      this.vel.direccion.grado = Simulacion.arrayDeVias.filter(via => 
+        (via.interO == posInicial) && (via.interF == path.front)).head.angulovia 
+      path.dequeue()
     }
   }
   
@@ -105,7 +108,9 @@ object Vehiculo {
     			  cMotoTaxis += 1
     		  }
     		}
-  	  }
+  	  } 
     }
+    Simulacion.arrayDeVehiculos.foreach(vehi => vehi.vel.direccion.grado = Simulacion.arrayDeVias.filter(via => 
+        (via.interO == vehi.posInicial) && (via.interF == vehi.path.front)).head.angulovia)
   }
 }

@@ -70,7 +70,7 @@ class Grafico {
     ventana.add(panel)    
   }
   
-  def graficarVehiculos(vehiculos: Array[Vehiculo]){
+  def graficarVehiculos(vehiculos: ArrayBuffer[Vehiculo]){
     
   }
 }

@@ -1,7 +1,7 @@
 package main
 
 
-import scalax.collection.edge.WLUnDiEdge
+import scalax.collection.edge.WLDiEdge
 import scala.collection.mutable.ArrayBuffer
 import punto.Via
 import punto.Interseccion
@@ -10,10 +10,15 @@ import scala.collection.Traversable
 import scalax.collection.GraphTraversal
 
 object GrafoVia {
-  val g= Graph[Interseccion,WLUnDiEdge]()
+  val g= Graph[Interseccion,WLDiEdge]()
   
   def construir(vias :ArrayBuffer[Via]){
-    vias.foreach(x => g.add(WLUnDiEdge.apply(x.origen,x.fin)(x.distancia, x.nom)))
+    vias.foreach(x => if(x.sentido.doblevia) {
+                      g.add(WLDiEdge(x.origen,x.fin)(x.distancia, x.nom))
+                      g.add(WLDiEdge(x.fin,x.origen)(x.distancia, x.nom))
+                      }else{
+                         g.add(WLDiEdge(x.origen,x.fin)(x.distancia, x.nom))
+                      })
   }
  
   
