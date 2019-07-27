@@ -10,13 +10,14 @@ import main.GrafoVia
 import scala.collection.mutable.Queue
 
 
-class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion, var vel: Velocidad) extends Movil with MovimientoUniforme {
+abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion, var vel: Velocidad) extends Movil with MovimientoUniforme {
   
   var placa: String = ""
+
   var path = Queue( GrafoVia.menorCamino(posInicial, posFinal).map(_.toOuter).toSeq : _*) //Convierte nodos a intersecciones
   path.dequeue()
   var radioLimite = vel.magnitud * Simulacion.dt
-  
+
   def aumentarPosc(dt: Int) = {
     var d= distEntreIntersec(posInicial, path.front) // falta lo de ayer
     if(d>radioLimite){
@@ -82,25 +83,25 @@ object Vehiculo {
     		}		
     		case 1 => {
     		  if (cCamiones < camiones) {
-    			  Simulacion.arrayDeVehiculos :+= new Camion(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  Simulacion.arrayDeVehiculos += new Camion(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0))) 
     			  cCamiones += 1
     		  }
     		}		
     		case 2 => {
     		  if (cCarros < carros) {
-    			  Simulacion.arrayDeVehiculos :+= new Carro(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  Simulacion.arrayDeVehiculos += new Carro(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
     		    cCarros += 1
     		  }
     		}
     		case 3 => {
     		  if (cMotos < motos) {
-    			  Simulacion.arrayDeVehiculos :+= new Moto(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  Simulacion.arrayDeVehiculos += new Moto(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
     		    cMotos += 1
     		  }
     		}
     		case 4 => {
     		  if (cMotoTaxis < motoTaxis) {
-    			  Simulacion.arrayDeVehiculos :+= new MotoTaxi(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  Simulacion.arrayDeVehiculos += new MotoTaxi(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
     			  cMotoTaxis += 1
     		  }
     		}

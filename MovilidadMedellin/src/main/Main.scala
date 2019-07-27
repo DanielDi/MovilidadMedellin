@@ -5,7 +5,8 @@ import movil.Vehiculo
 
 object Main extends App {
   
-  val ruta = "C:\\Users\\sebas\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
+  //val ruta = "C:\\Users\\sebas\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
+  val ruta = "C:\\Users\\DELL\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
   val archivoParametros = "parametros.json"
   val archivoResultados = "resultados.json"
   
@@ -16,4 +17,6 @@ object Main extends App {
   Simulacion.crearGrafico
   Simulacion.crearGrafo
   Vehiculo.crearVehiculos
+  
+  println(Simulacion.arrayDeVehiculos.mkString(", "))
 }
