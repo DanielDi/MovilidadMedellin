@@ -63,7 +63,7 @@ object Simulacion extends Runnable {
     val ig65 = new Interseccion(5400, 10500, "65 Igu")    
     val robledo = new Interseccion(5400, 1500, "Exito Rob")    
     val colReg = new Interseccion(8250, 12000, "Col Reg")    
-    val colFerr = new Interseccion(8250, 15000, "Col Ferr")     
+//    val colFerr = new Interseccion(8250, 15000, "Col Ferr")     
     val col65 = new Interseccion(8250, 10500, "Col 65")     
     val col80 = new Interseccion(8250, 1500, "Col 80")    
     val juanOr = new Interseccion(10500, 19500, "Sn Juan Ori")    

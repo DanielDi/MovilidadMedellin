@@ -87,7 +87,6 @@ object Grafico extends KeyListener{
       render.setSeriesShapesVisible(n, true)
       n += 1
     })
-
   }
   
   def colorVehiculo(v: Vehiculo): Color = v match {
@@ -103,7 +102,7 @@ object Grafico extends KeyListener{
   def keyPressed(e: KeyEvent) {
     var key = e.getKeyCode();
     if(key == KeyEvent.VK_F5){
-      
+//      Simulacion.run()
     }
     else if(key == KeyEvent.VK_F6){
       
