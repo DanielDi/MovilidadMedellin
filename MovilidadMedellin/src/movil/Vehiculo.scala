@@ -16,22 +16,26 @@ abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion
 
   var path = Queue( GrafoVia.menorCamino(posInicial, posFinal).map(_.toOuter).toSeq : _*) //Convierte nodos a intersecciones
   println("ya me cree")
-  println(path.dequeue())
-  println(path)
+  println(this.path.dequeue())
+  println(this.path)
   println(vel.direccion.grado)
   var radioLimite = vel.magnitud * Simulacion.dt
 
   def aumentarPosc(dt: Int) = {
-    var d= distEntreIntersec(posInicial, path.front) //
-    if(d>radioLimite){
-      var tup = formaAumentoPosicion(this.vel, dt)
-      this.posInicial.xI = this.posInicial.xI + tup._1
-      this.posInicial.yI = this.posInicial.yI + tup._2
-    }else{
-      this.posInicial.xI = path.front.xI
-      this.posFinal.yI = path.front.yI
-      this.vel.direccion.grado = this.direccionAngulo() 
-      path.dequeue()
+    if(!this.path.isEmpty){
+    	var d= distEntreIntersec(posInicial, path.front)
+			println(d)
+			println("Coordenadas: "+posInicial.xI+" - "+ posInicial.yI)
+			if(d>radioLimite){
+				var tup = formaAumentoPosicion(this.vel, dt)
+						this.posInicial.xI = this.posInicial.xI + tup._1
+						this.posInicial.yI = this.posInicial.yI + tup._2
+			}else{
+				this.posInicial = this.path.front
+				println(this.path.dequeue())
+				println("posInicial: "+ this.posInicial)
+				if(!this.path.isEmpty) this.vel.direccion.grado = this.direccionAngulo(this.posInicial,this.path) 
+			}
     }
   }
   
@@ -77,8 +81,10 @@ object Vehiculo {
   def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
  
   def crearVehiculos(){
-    //Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(1),Simulacion.arrayDeIntersecciones(2),new Velocidad(30,new Angulo(0))))
-    while (Simulacion.arrayDeVehiculos.length < totalVehiculos) {
+    var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="65 con 30")(0))
+    var b = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="M. Laura Reg")(0))
+    Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(a),Simulacion.arrayDeIntersecciones(b),new Velocidad(30,new Angulo(0))))
+    while (Simulacion.arrayDeVehiculos.length < 10){//totalVehiculos) {
 //      println(s"Inicio-${Simulacion.arrayDeVehiculos.length} total: $totalVehiculos")
   	  var r = Random.nextInt(5)
   		var posiciones = genPosiciones()
@@ -129,6 +135,6 @@ object Vehiculo {
     }
     println("ya sali")
     
-    Simulacion.arrayDeVehiculos.foreach(vehi => vehi.vel.direccion.grado = vehi.direccionAngulo())
+    Simulacion.arrayDeVehiculos.foreach(vehi => vehi.vel.direccion.grado = vehi.direccionAngulo(vehi.posInicial,vehi.path))
   }
 }

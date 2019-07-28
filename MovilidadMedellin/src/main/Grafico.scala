@@ -83,7 +83,6 @@ object Grafico extends KeyListener{
       vehiculo.add(x.posInicial.xI,x.posInicial.yI)
       dataset.addSeries(vehiculo)
       render.setSeriesPaint(n, colorVehiculo(x))
-      println(x.getClass)
       render.setSeriesShapesVisible(n, true)
       n += 1
     })

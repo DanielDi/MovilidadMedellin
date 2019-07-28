@@ -17,7 +17,7 @@ object Simulacion extends Runnable {
   
   var t = 0
   var dt = parametrosSimulacion.dt
-  var tRefresh = parametrosSimulacion.tRefresh
+  var tRefresh = 30//parametrosSimulacion.tRefresh
   var vehiculosMin = parametrosSimulacion.vehiculos.minimo
   var vehiculosMax = parametrosSimulacion.vehiculos.maximo
   var velMin = parametrosSimulacion.velocidad.minimo
