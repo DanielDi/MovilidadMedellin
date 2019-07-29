@@ -21,19 +21,23 @@ import org.jfree.chart.labels.StandardXYItemLabelGenerator
 import org.jfree.chart.annotations.XYTextAnnotation
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import org.jfree.data.general.DatasetGroup
 
 object Grafico extends KeyListener{
-    var dataset = new XYSeriesCollection()
+  var dataset = new XYSeriesCollection()
     
-    var grafica = ChartFactory.createScatterPlot("", "", "", dataset,PlotOrientation.VERTICAL,false,false,false)
-    
-    var graficaPlot = grafica.getXYPlot() 
-    
-    var render = new XYLineAndShapeRenderer()      // Para el diseño de las lineas
-    
-    var n = 0                                      //Variable auxiliar para asignar ID a los puntos
+  var grafica = ChartFactory.createScatterPlot("", "", "", dataset,PlotOrientation.VERTICAL,false,false,false)
+  
+  var graficaPlot = grafica.getXYPlot() 
+  
+  var render = new XYLineAndShapeRenderer()      // Para el diseño de las lineas
+  
+  var n = 0                                      //Variable auxiliar para asignar ID a los puntos
+  
+  var numVias = 0
     
   def graficarVias(vias:ArrayBuffer[Via], intersecciones:ArrayBuffer[Interseccion]){
+    numVias = vias.length
     
     render.setStroke(new BasicStroke(4))           //Asigna grosor
     render.setBaseShapesVisible(true)              //Poner visibilidad de los puntos
@@ -75,17 +79,27 @@ object Grafico extends KeyListener{
     ventana.add(panel)
     
     ventana.addKeyListener(this)
-  
   }
   
   def graficarVehiculos(vehiculos: ArrayBuffer[Vehiculo]){
-    vehiculos.foreach({x => val vehiculo = new XYSeries(n)
-      vehiculo.add(x.posInicial.xI,x.posInicial.yI)
-      dataset.addSeries(vehiculo)
-      render.setSeriesPaint(n, colorVehiculo(x))
-      render.setSeriesShapesVisible(n, true)
-      n += 1
-    })
+    var l = vehiculos.length+numVias-1
+    if(dataset.getSeriesCount  == numVias){    	
+			vehiculos.foreach({v => val vehiculo = new XYSeries(n)
+  			vehiculo.add(v.posInicial.xI,v.posInicial.yI)
+  			dataset.addSeries(vehiculo)
+  			render.setSeriesPaint(n, colorVehiculo(v))
+  			render.setSeriesShapesVisible(n, true)
+  			n += 1
+			})
+    }
+    else{
+      var x = numVias
+      vehiculos.foreach({v =>
+        dataset.getSeries(x).remove(0)
+        dataset.getSeries(x).add(v.posInicial.xI, v.posInicial.yI)
+        x+=1
+      })
+    } 
   }
   
   def colorVehiculo(v: Vehiculo): Color = v match {

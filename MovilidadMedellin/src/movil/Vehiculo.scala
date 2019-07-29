@@ -31,7 +31,7 @@ abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion
 						this.posInicial.xI = this.posInicial.xI + tup._1
 						this.posInicial.yI = this.posInicial.yI + tup._2
 			}else{
-				this.posInicial = this.path.front
+				this.posInicial = this.path.front.copy()
 				println(this.path.dequeue())
 				println("posInicial: "+ this.posInicial)
 				if(!this.path.isEmpty) this.vel.direccion.grado = this.direccionAngulo(this.posInicial,this.path) 
@@ -61,7 +61,7 @@ object Vehiculo {
       r
     }
     
-    (Simulacion.arrayDeIntersecciones(posIni), Simulacion.arrayDeIntersecciones(posFin))    
+    (Simulacion.arrayDeIntersecciones(posIni).copy(), Simulacion.arrayDeIntersecciones(posFin).copy())    
   }
   
   var totalVehiculos = Simulacion.vehiculosMin + Random.nextInt(Simulacion.vehiculosMax - Simulacion.vehiculosMin + 1)
@@ -81,10 +81,10 @@ object Vehiculo {
   def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
  
   def crearVehiculos(){
-    var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Pto 0")(0))
+    var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Viva Env")(0))
     var b = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Reg 30")(0))
-    Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(a),Simulacion.arrayDeIntersecciones(b),new Velocidad(30,new Angulo(0))))
-    while (Simulacion.arrayDeVehiculos.length < 5){//totalVehiculos) {
+    Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(a).copy(),Simulacion.arrayDeIntersecciones(b).copy(),new Velocidad(30,new Angulo(0))))
+    while (Simulacion.arrayDeVehiculos.length < totalVehiculos) {
 //      println(s"Inicio-${Simulacion.arrayDeVehiculos.length} total: $totalVehiculos")
   	  var r = Random.nextInt(5)
   		var posiciones = genPosiciones()

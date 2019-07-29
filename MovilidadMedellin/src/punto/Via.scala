@@ -13,8 +13,6 @@ extends Recta{
   var anguloVia = {
       if(X == 0) math.Pi/2
       else math.atan(pendiente)
-//    if(interO.yI>interF.yI) (math.atan(pendiente))+math.Pi
-//    else (math.atan(pendiente))
   }
   def viasAlternativas(){
     
