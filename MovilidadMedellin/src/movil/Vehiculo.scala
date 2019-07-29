@@ -81,10 +81,10 @@ object Vehiculo {
   def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
  
   def crearVehiculos(){
-    var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="65 con 30")(0))
-    var b = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="M. Laura Reg")(0))
+    var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Pto 0")(0))
+    var b = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Reg 30")(0))
     Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(a),Simulacion.arrayDeIntersecciones(b),new Velocidad(30,new Angulo(0))))
-    while (Simulacion.arrayDeVehiculos.length < 10){//totalVehiculos) {
+    while (Simulacion.arrayDeVehiculos.length < 5){//totalVehiculos) {
 //      println(s"Inicio-${Simulacion.arrayDeVehiculos.length} total: $totalVehiculos")
   	  var r = Random.nextInt(5)
   		var posiciones = genPosiciones()

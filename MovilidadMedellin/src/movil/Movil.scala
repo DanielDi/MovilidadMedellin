@@ -14,31 +14,18 @@ abstract class Movil {
   def aumentarPosc(dt: Int)  
   
   def direccionAngulo(posO: Interseccion, camino: Queue[Interseccion]):Double = {
-//    println("Puntos cambio de direccion: "+posO+" , "+ camino.front)
-    var cambio: Double = 0
+    var angulo: Double = 0
     var a = Simulacion.arrayDeVias.filter(via =>
       ((via.interO == posO) && (via.interF == camino.front)))
-    if (a.size != 0) cambio = a(0).anguloVia
-    else if (a.size == 0){
+    if (a.size == 0){
       a = Simulacion.arrayDeVias.filter(via =>
       ((via.interF == posO) && (via.interO == camino.front)))
-      //sebas
-//      cambio = math.Pi
-//      println("Angulo: " + a(0).anguloVia +cambio)
-      cambio = a(0).anguloVia2
     }
-//    if(a(0).X > 0 && a(0).Y >= 0) cambio = math.Pi
-//    else if(a(0).X < 0 && a(0).Y >= 0) cambio = math.Pi
-//    if(a(0).Y > 0 && a(0).X >= 0) cambio = math.Pi
-//    else if(a(0).Y < 0 && a(0).X >= 0) cambio = math.Pi
-//    println("Angulo: " + a(0).anguloVia +cambio)
-    
-//    if(cambio==0 && a(0).anguloVia == 0){
-//      return this.vel.direccion.grado
-//    }else{
-//      return a(0).anguloVia +cambio
-//    }
-    return cambio
-  }
-    
+    println("primer angulo"+a(0).anguloVia)
+    if(posO.xI > camino.front.xI) angulo = a(0).anguloVia + math.Pi
+    else if(posO.xI == camino.front.xI && posO.yI > camino.front.yI) angulo = a(0).anguloVia + math.Pi
+    else angulo = a(0).anguloVia
+    println(angulo)
+    angulo
+  } 
 }

@@ -10,20 +10,14 @@ extends Recta{
   var Y = (fin.yI - origen.yI)
   var X = (fin.xI - origen.xI)
   var pendiente = Y/X
-  var anguloVia = (math.atan(pendiente))
-  var anguloVia2 = anguloVia + math.Pi
-  
-//  var anguloVia = {
-//    var negA = (fin.yI - origen.yI)
-//    var negB = (fin.xI - origen.xI)
-//    var pendiente = negA/negB
-//    var suma = (math.atan(pendiente))
-//    println(this.nom+" "+negA+" - "+negB)
-//    if(negA==0 && negB<0) suma += math.Pi
-//    suma
-//  }
-  
-//  if(negB<0 && negA >=0) anguloVia -= math.Pi/2
-//  if(negB>=0 && negA <0) anguloVia -= math.Pi
+  var anguloVia = {
+      if(X == 0) math.Pi/2
+      else math.atan(pendiente)
+//    if(interO.yI>interF.yI) (math.atan(pendiente))+math.Pi
+//    else (math.atan(pendiente))
+  }
+  def viasAlternativas(){
+    
+  }
   
 }  
