@@ -9,6 +9,9 @@ import net.liftweb.json._
 import net.liftweb.json.Serialization.write
 import parametrosSimulacion._
 import resultadosSimulacion._
+import movil.{Vehiculo => v}
+import main.{Simulacion => s}
+import punto._
 
 class ManejoJSON {
   
@@ -28,10 +31,23 @@ class ManejoJSON {
     //Utilizamos PrintWriter una clase propia de Java 
     var pw = new PrintWriter(new File(ruta))
     
-    var vehiculos = new VehiculosR(410, 120, 150, 80, 50, 10)
+    //obtenemos todas las variables necesarias para escribir en el archivo de resultados
+    var viasUnSentido: Int = s.arrayDeVias.filter(_.sentido.unavia).length
+    var viasDobleSentido: Int = s.arrayDeVias.filter(_.sentido.doblevia).length
+    
+    var longitudPromedio: Double = s.arrayDeVias.map(_.distancia).reduce(_ + _)/s.arrayDeVias.length
+    
+//    var promedioOrigen: Double = s.arrayDeIntersecciones
+    
+    var tiempoReal = s.tRefresh * s.dt
+    
+//    var velocidadMaxima = s.arrayDeVehiculos.max
+    
+    var vehiculos = new VehiculosR(v.totalVehiculos, v.cCarros, v.cMotos, v.cBuses, v.cCamiones, v.cMotoTaxis)
     var vehiculosInterseccion = new VehiculosInterseccion(50, 46, 5, 3)
-    var mallaVial = new MallaVial(50, 15, 10, 40, 60, 80, 422, vehiculosInterseccion)
-    var tiempos = new Tiempos(600, 50)
+    var mallaVial = new MallaVial(s.arrayDeVias.length, s.arrayDeIntersecciones.length, viasUnSentido, viasDobleSentido, 
+        s.vehiculosMin, s.vehiculosMax, longitudPromedio, vehiculosInterseccion)
+    var tiempos = new Tiempos(s.t, tiempoReal)
     var velocidades = new Velocidades(40, 80, 63)
     var distancias = new Distancias(523, 1540, 1250)
     var resultadosSimulaciones = new ResultadosSimulacion(vehiculos, mallaVial, tiempos, velocidades, distancias)
