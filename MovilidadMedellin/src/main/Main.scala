@@ -17,9 +17,12 @@ object Main extends App {
 
   Simulacion.crearGrafico
   Simulacion.crearGrafo
-  Vehiculo.crearVehiculos
+  Simulacion.hilo = new Thread(Simulacion)
   
-  Simulacion.run()
+//  println(Simulacion.arrayDeVehiculos.mkString(", "))
   
-  println(Simulacion.arrayDeVehiculos.mkString(", "))
+  def iniciar(){
+    Vehiculo.crearVehiculos()
+    Simulacion.iniciar
+  }
 }

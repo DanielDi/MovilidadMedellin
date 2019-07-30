@@ -14,18 +14,20 @@ object GrafoVia {
   
   def construir(vias :ArrayBuffer[Via]){
     vias.foreach(x => if(x.sentido.doblevia) {
-                      g.add(WLDiEdge(x.origen,x.fin)(x.distancia, x.nom))
-                      g.add(WLDiEdge(x.fin,x.origen)(x.distancia, x.nom))
+                      g.add(WLDiEdge(x.origen.copy(),x.fin.copy())(x.distancia, x.nom))
+                      g.add(WLDiEdge(x.fin.copy(),x.origen.copy())(x.distancia, x.nom))
                       }else{
-                         g.add(WLDiEdge(x.origen,x.fin)(x.distancia, x.nom))
+                         g.add(WLDiEdge(x.origen.copy(),x.fin.copy())(x.distancia, x.nom))
                       })
   }
  
   
   def menorCamino(n1: Interseccion, n2: Interseccion)={
-    var nodo1= g.get(n1)
-    var nodo2= g.get(n2)
-    var path = nodo1.shortestPathTo(nodo2).get
+    println("n1: "+n1+" n2: "+n2)
+    println("Grafo: "+ g.nodes.foreach(x => print(x.toOuter+": X-"+x.toOuter.xI+", Y-"+x.toOuter.yI+" ")))
+    val nodo1= g.get(n1)
+    val nodo2= g.get(n2)
+    val path = nodo1.shortestPathTo(nodo2).get
     path.nodes
   }
 }

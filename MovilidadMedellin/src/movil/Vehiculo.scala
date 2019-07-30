@@ -24,8 +24,8 @@ abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion
   def aumentarPosc(dt: Int) = {
     if(!this.path.isEmpty){
     	var d= distEntreIntersec(posInicial, path.front)
-			println(d)
-			println("Coordenadas: "+posInicial.xI+" - "+ posInicial.yI)
+//			println(d)
+//			println("Coordenadas: "+posInicial.xI+" - "+ posInicial.yI)
 			if(d>radioLimite){
 				var tup = formaAumentoPosicion(this.vel, dt)
 						this.posInicial.xI = this.posInicial.xI + tup._1
@@ -34,7 +34,7 @@ abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion
 				this.posInicial = this.path.front.copy()
 				println(this.path.dequeue())
 				println("posInicial: "+ this.posInicial)
-				if(!this.path.isEmpty) this.vel.direccion.grado = this.direccionAngulo(this.posInicial,this.path) 
+				if(!this.path.isEmpty) this.vel.direccion.grado = this.direccionAngulo(this.posInicial ,this.path) 
 			}
     }
   }
@@ -81,6 +81,7 @@ object Vehiculo {
   def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
  
   def crearVehiculos(){
+
     var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Viva Env")(0))
     var b = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Reg 30")(0))
     Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(a).copy(),Simulacion.arrayDeIntersecciones(b).copy(),new Velocidad(30,new Angulo(0))))
@@ -133,7 +134,7 @@ object Vehiculo {
   	  }
 //      println(s" Fin-${Simulacion.arrayDeVehiculos.length} total: $totalVehiculos") 
     }
-    println("ya sali")
+//    println("ya sali")
     
     Simulacion.arrayDeVehiculos.foreach(vehi => vehi.vel.direccion.grado = vehi.direccionAngulo(vehi.posInicial,vehi.path))
   }

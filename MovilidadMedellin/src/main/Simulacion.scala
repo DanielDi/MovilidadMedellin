@@ -27,11 +27,14 @@ object Simulacion extends Runnable {
   var propBuses = parametrosSimulacion.proporciones.buses
   var propCamiones = parametrosSimulacion.proporciones.camiones
   var propMotoTaxis = parametrosSimulacion.proporciones.motoTaxis
+  
+  var hilo: Thread = _ 
+  
+  def iniciar = hilo.start
 
   var arrayDeVehiculos = ArrayBuffer[Vehiculo]()  
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
-  
   def run() {
     while(true) {
       arrayDeVehiculos.foreach(_.aumentarPosc(dt))

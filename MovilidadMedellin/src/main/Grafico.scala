@@ -24,6 +24,8 @@ import java.awt.event.KeyListener;
 import org.jfree.data.general.DatasetGroup
 
 object Grafico extends KeyListener{
+  var estadoThread = true 
+  
   var dataset = new XYSeriesCollection()
     
   var grafica = ChartFactory.createScatterPlot("", "", "", dataset,PlotOrientation.VERTICAL,false,false,false)
@@ -80,10 +82,9 @@ object Grafico extends KeyListener{
     
     ventana.addKeyListener(this)
   }
-  
+    
   def graficarVehiculos(vehiculos: ArrayBuffer[Vehiculo]){
-    var l = vehiculos.length+numVias-1
-    if(dataset.getSeriesCount  == numVias){    	
+    if(dataset.getSeriesCount  == numVias){    	            //Hay carros?
 			vehiculos.foreach({v => val vehiculo = new XYSeries(n)
   			vehiculo.add(v.posInicial.xI,v.posInicial.yI)
   			dataset.addSeries(vehiculo)
@@ -101,7 +102,7 @@ object Grafico extends KeyListener{
       })
     } 
   }
-  
+//  
   def colorVehiculo(v: Vehiculo): Color = v match {
     case v: Bus => Color.BLUE
     case v: Camion => Color.RED
@@ -110,15 +111,29 @@ object Grafico extends KeyListener{
     case v: MotoTaxi => Color.YELLOW
   }
   
+  def removerVehiculos{
+    Simulacion.arrayDeVehiculos = ArrayBuffer[Vehiculo]()
+    for(i <- numVias until dataset.getSeriesCount-1) dataset.removeSeries(numVias)
+    println(Simulacion.arrayDeVehiculos.mkString(","))
+  }
+  
   def keyTyped(x: KeyEvent) = {}
   def keyReleased(x : KeyEvent) = {}
   def keyPressed(e: KeyEvent) {
     var key = e.getKeyCode();
     if(key == KeyEvent.VK_F5){
-//      Simulacion.run()
+      if(dataset.getSeriesCount != numVias) removerVehiculos
+      Main.iniciar()
     }
     else if(key == KeyEvent.VK_F6){
-      
+      if (estadoThread) {
+        Simulacion.hilo.suspend()
+        estadoThread = false
+      }
+      else {
+        Simulacion.hilo.resume()
+        estadoThread = true
+      }
     }
   }
 }

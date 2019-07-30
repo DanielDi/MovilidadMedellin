@@ -22,7 +22,7 @@ abstract class Movil {
         a = Simulacion.arrayDeVias.filter(via =>
         ((via.interF == posO) && (via.interO == camino.front)))
       }
-      println("primer angulo"+a(0).anguloVia)
+//      println("primer angulo"+a(0).anguloVia)
       if(posO.xI > camino.front.xI) angulo = a(0).anguloVia + math.Pi
       else if(posO.xI == camino.front.xI && posO.yI > camino.front.yI) angulo = a(0).anguloVia + math.Pi
       else angulo = a(0).anguloVia
