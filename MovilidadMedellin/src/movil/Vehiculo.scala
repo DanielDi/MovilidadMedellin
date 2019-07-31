@@ -6,9 +6,15 @@ import punto.Velocidad
 import punto.Angulo
 import scala.util.Random
 
-class Vehiculo(pos: Any, vel: Velocidad) extends Movil(pos,vel) with MovimientoUniforme {
+class Vehiculo(pos: Any, private var _vel: Velocidad) extends Movil(pos,_vel) with MovimientoUniforme {
   
   var placa: String = ""
+  
+  //Accesor
+  def vel = _vel
+  
+  //Mutator
+  def vel_= (vel: Velocidad): Unit = _vel = vel
   
   def aumentarPosc(posc: Any) ={}
   
