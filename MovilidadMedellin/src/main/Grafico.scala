@@ -22,6 +22,7 @@ import org.jfree.chart.annotations.XYTextAnnotation
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import org.jfree.data.general.DatasetGroup
+import sun.management.GarbageCollectorImpl
 
 object Grafico extends KeyListener{
   var estadoThread = true                //auxiliar para verificar si el hilo esta corriendo
@@ -107,9 +108,10 @@ object Grafico extends KeyListener{
   }
   
   def removerVehiculos{
-    Simulacion.arrayDeVehiculos = ArrayBuffer[Vehiculo]()
-    for(i <- numVias until dataset.getSeriesCount-1) dataset.removeSeries(numVias)
-    println(Simulacion.arrayDeVehiculos.mkString(","))
+    Simulacion.arrayDeIntersecciones.clear()
+    Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
+    Simulacion.arrayDeVehiculos.clear()
+//    println(Simulacion.arrayDeVehiculos.mkString(","))
   }
   
   def keyTyped(x: KeyEvent) = {}
@@ -117,8 +119,7 @@ object Grafico extends KeyListener{
   def keyPressed(e: KeyEvent) {
     var key = e.getKeyCode();
     if(key == KeyEvent.VK_F5){
-//      Simulacion.hilo.
-//      GrafoVia.g.clear()
+      estadoThread = true
       if(dataset.getSeriesCount != numVias) removerVehiculos
       Main.iniciar()
     }

@@ -37,8 +37,9 @@ object Simulacion extends Runnable {
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
   def run() {
     println(arrayDeIntersecciones.mkString(","))
-    while(true) {
-//      println(arrayDeIntersecciones.mkString(","))
+    while(!Simulacion.arrayDeVehiculos.map(_.path).isEmpty) {
+//     println("Tamaño ArrayIntersecciones en el Run: "+arrayDeIntersecciones.length)
+//     println(arrayDeIntersecciones.mkString(","))
       arrayDeVehiculos.foreach(_.aumentarPosc(dt))
       t += dt
       Grafico.graficarVehiculos(arrayDeVehiculos)
@@ -55,12 +56,14 @@ object Simulacion extends Runnable {
   def crearGrafico() = {
      iniciarVias
      Grafico.graficarVias(arrayDeVias,arrayDeIntersecciones)
-     println(arrayDeIntersecciones.mkString(","))
+     arrayDeIntersecciones.clear()
+     arrayDeVias.clear()
    }
    
   
   
   def iniciarVias{
+    
     val niquia = new Interseccion(300, 12000, "Niquia")     
     val lauraAuto = new Interseccion(2400, 11400, "M. Laura Auto")     
     val lauraReg = new Interseccion(2400, 12600, "M. Laura Reg")     
@@ -102,7 +105,7 @@ object Simulacion extends Runnable {
     val gu30 = new Interseccion(13500, 12000, "Guay 30")   
     val gu80 = new Interseccion(19500, 12000, "Guay 80")  
     val _65_80 = new Interseccion(19500, 10500, "65 con 30")  
-    val gu_37S = new Interseccion(21000, 12000, "Guay con 37S") 
+    val gu_37S = new Interseccion(21000, 12000, "Guay con 37S")
 
     arrayDeVias.append(new Via(niquia, lauraAuto, 80, TipoVia("Carrera"), Sentido.dobleVia, "64C", "Auto Norte"),      
       new Via(niquia, lauraReg, 80, TipoVia("Carrera"), Sentido.dobleVia, "62", "Regional"),       
@@ -176,6 +179,7 @@ object Simulacion extends Runnable {
       new Via(viva, pqEnv, 60, TipoVia("Calle"), Sentido.dobleVia, "37S", "37S"), 
       new Via(viva, gu_37S, 60, TipoVia("Calle"), Sentido.dobleVia, "63", "37S")) 
      
+      println("Tamaño ArrayIntersecciones: "+arrayDeIntersecciones.length)
   }
   
 }
