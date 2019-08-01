@@ -111,6 +111,7 @@ object Grafico extends KeyListener{
     Simulacion.arrayDeIntersecciones.clear()
     Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
     Simulacion.arrayDeVehiculos.clear()
+    Simulacion.arrayDeVias.clear()
 //    println(Simulacion.arrayDeVehiculos.mkString(","))
   }
   
