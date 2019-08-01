@@ -82,8 +82,8 @@ object Vehiculo {
  
   def crearVehiculos(){
 
-    var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Viva Env")(0))
-    var b = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Reg 30")(0))
+    var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Monterrey")(0))
+    var b = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Col Reg")(0))
     Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(a).copy(),Simulacion.arrayDeIntersecciones(b).copy(),new Velocidad(30,new Angulo(0))))
     while (Simulacion.arrayDeVehiculos.length < totalVehiculos) {
 //      println(s"Inicio-${Simulacion.arrayDeVehiculos.length} total: $totalVehiculos")

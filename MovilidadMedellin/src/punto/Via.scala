@@ -14,8 +14,4 @@ extends Recta{
       if(X == 0) math.Pi/2
       else math.atan(pendiente)
   }
-  def viasAlternativas(){
-    
-  }
-  
 }  

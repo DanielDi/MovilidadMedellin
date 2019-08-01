@@ -24,7 +24,7 @@ import java.awt.event.KeyListener;
 import org.jfree.data.general.DatasetGroup
 
 object Grafico extends KeyListener{
-  var estadoThread = true 
+  var estadoThread = true                //auxiliar para verificar si el hilo esta corriendo
   
   var dataset = new XYSeriesCollection()
     
@@ -34,41 +34,36 @@ object Grafico extends KeyListener{
   
   var render = new XYLineAndShapeRenderer()      // Para el diseño de las lineas
   
-  var n = 0                                      //Variable auxiliar para asignar ID a los puntos
+  var n = 0                                      //Variable auxiliar para asignar ID a los dataset
   
-  var numVias = 0
+  var numVias = 0                         //auxuliar que guarda la posición el primer vehiculo en el dataset. El numero de vias.
     
   def graficarVias(vias:ArrayBuffer[Via], intersecciones:ArrayBuffer[Interseccion]){
-    numVias = vias.length
-    
+    numVias = vias.length                
     render.setStroke(new BasicStroke(4))           //Asigna grosor
     render.setBaseShapesVisible(true)              //Poner visibilidad de los puntos
     render.setBaseSeriesVisible(true)              //Hacer visibles las lineas
-    
                                                   //Creación de las lineas de las vías
-                                       
     vias.foreach({x => val via = new XYSeries(n)
-      via.add(x.interO.xI,x.interO.yI)
-      via.add(x.interF.xI, x.interF.yI)
-      dataset.addSeries(via)
-      render.setSeriesShapesVisible(n, false)
-      render.setSeriesPaint(n,Color.lightGray)
-      n += 1
+      via.add(x.interO.xI,x.interO.yI)            //Añadir punto origen de la via 
+      via.add(x.interF.xI, x.interF.yI)            //añadir punto fin de la via
+      dataset.addSeries(via)                        // Añadir via al dataset
+      render.setSeriesShapesVisible(n, false)        //No mostrar forma de los puntos
+      render.setSeriesPaint(n,Color.lightGray)      //Asignar color a las vias
+      n += 1                                        //Aumentar al ID 
     })
-    
-    //Añadir intersecciones a la gráfica
+                                                    //Añadir intersecciones a la gráfica
     intersecciones.foreach({
       x => val interseccion = new XYTextAnnotation(x.nombre,x.xI,x.yI+0.1)
       graficaPlot.addAnnotation(interseccion)
     })
-
-    graficaPlot.getRangeAxis().setVisible(false) // ocultar eje x
-    graficaPlot.getDomainAxis().setVisible(false) // ocultar eje y
-    graficaPlot.setDomainGridlinesVisible(false) //Quitar la grilla
-    graficaPlot.setBackgroundPaint(Color.white) //Color del fondo
-    graficaPlot.setRenderer(render) //Set de las modificaciones graficas
+    graficaPlot.getRangeAxis().setVisible(false)   // ocultar eje x
+    graficaPlot.getDomainAxis().setVisible(false)   // ocultar eje y
+    graficaPlot.setDomainGridlinesVisible(false)   //Quitar la grilla
+    graficaPlot.setBackgroundPaint(Color.white)   //Color del fondo
+    graficaPlot.setRenderer(render)               //Set de las modificaciones graficas
     
-    var panel = new ChartPanel(grafica) //donde se dibuja la grafica
+    var panel = new ChartPanel(grafica)         //donde se dibuja la grafica
     
     var ventana = new JFrame("Proyecto") 
     
@@ -84,8 +79,8 @@ object Grafico extends KeyListener{
   }
     
   def graficarVehiculos(vehiculos: ArrayBuffer[Vehiculo]){
-    if(dataset.getSeriesCount  == numVias){    	            //Hay carros?
-			vehiculos.foreach({v => val vehiculo = new XYSeries(n)
+    if(dataset.getSeriesCount  == numVias){    	                //Si no hay carros 
+			vehiculos.foreach({v => val vehiculo = new XYSeries(n)    // Añadir Data set 
   			vehiculo.add(v.posInicial.xI,v.posInicial.yI)
   			dataset.addSeries(vehiculo)
   			render.setSeriesPaint(n, colorVehiculo(v))
@@ -93,12 +88,12 @@ object Grafico extends KeyListener{
   			n += 1
 			})
     }
-    else{
+    else{                                                       // Si ya hay vehiculos (desde la segunda iteracion)
       var x = numVias
       vehiculos.foreach({v =>
-        dataset.getSeries(x).remove(0)
-        dataset.getSeries(x).add(v.posInicial.xI, v.posInicial.yI)
-        x+=1
+        dataset.getSeries(x).remove(0)                          // Quitar punto anterior
+        dataset.getSeries(x).add(v.posInicial.xI, v.posInicial.yI)  //Asignar punto nuevo
+        x += 1
       })
     } 
   }
@@ -122,6 +117,8 @@ object Grafico extends KeyListener{
   def keyPressed(e: KeyEvent) {
     var key = e.getKeyCode();
     if(key == KeyEvent.VK_F5){
+//      Simulacion.hilo.
+//      GrafoVia.g.clear()
       if(dataset.getSeriesCount != numVias) removerVehiculos
       Main.iniciar()
     }

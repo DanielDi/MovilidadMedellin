@@ -23,7 +23,7 @@ object GrafoVia {
  
   
   def menorCamino(n1: Interseccion, n2: Interseccion)={
-    println("n1: "+n1+" n2: "+n2)
+    println("n1: "+n1+" n2: "+ n2)
     println("Grafo: "+ g.nodes.foreach(x => print(x.toOuter+": X-"+x.toOuter.xI+", Y-"+x.toOuter.yI+" ")))
     val nodo1= g.get(n1)
     val nodo2= g.get(n2)

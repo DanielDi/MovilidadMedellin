@@ -36,13 +36,16 @@ object Simulacion extends Runnable {
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
   def run() {
+    println(arrayDeIntersecciones.mkString(","))
     while(true) {
+//      println(arrayDeIntersecciones.mkString(","))
       arrayDeVehiculos.foreach(_.aumentarPosc(dt))
       t += dt
       Grafico.graficarVehiculos(arrayDeVehiculos)
       
       Thread.sleep(tRefresh)
     }
+    
   }
   
   def crearGrafo(){
@@ -52,6 +55,7 @@ object Simulacion extends Runnable {
   def crearGrafico() = {
      iniciarVias
      Grafico.graficarVias(arrayDeVias,arrayDeIntersecciones)
+     println(arrayDeIntersecciones.mkString(","))
    }
    
   

@@ -26,7 +26,7 @@ abstract class Movil {
       if(posO.xI > camino.front.xI) angulo = a(0).anguloVia + math.Pi
       else if(posO.xI == camino.front.xI && posO.yI > camino.front.yI) angulo = a(0).anguloVia + math.Pi
       else angulo = a(0).anguloVia
-      println(angulo)
+//      println(angulo)
     }
     angulo
   } 

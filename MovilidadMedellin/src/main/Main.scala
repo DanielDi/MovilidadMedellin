@@ -14,14 +14,15 @@ object Main extends App {
   var manejoJSON = new ManejoJSON()
   var parametrosSimulacion = manejoJSON.leerArchivo(ruta + archivoParametros)
   manejoJSON.escribirArchivoResultados(ruta + archivoResultados)
-
-  Simulacion.crearGrafico
-  Simulacion.crearGrafo
-  Simulacion.hilo = new Thread(Simulacion)
   
+  Simulacion.crearGrafico
+  Simulacion.hilo = new Thread(Simulacion)
 //  println(Simulacion.arrayDeVehiculos.mkString(", "))
   
   def iniciar(){
+    Simulacion.t = 0
+	  Simulacion.crearGrafo
+	  Simulacion.hilo = new Thread(Simulacion)
     Vehiculo.crearVehiculos()
     Simulacion.iniciar
   }
