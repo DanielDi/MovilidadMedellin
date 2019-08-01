@@ -3,6 +3,6 @@ package punto
 trait Recta {
   type I = Interseccion
   
-  var origen: I
-  var fin: I
+  val origen: I
+  val fin: I
 }
