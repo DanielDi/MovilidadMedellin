@@ -1,11 +1,35 @@
 package movil
 
 import punto.Velocidad
+import punto.Interseccion
+import main.Simulacion
+import scala.collection.mutable.Queue
 
-abstract class Movil(posc: Any,vel: Velocidad)  {
-    
-  def aumentarPosc(posc: Any)  
+abstract class Movil {
+   
+  var posInicial: Interseccion
+  var posFinal: Interseccion
+  var vel: Velocidad
+  var path: Queue[Interseccion]
+  def aumentarPosc(dt: Int)  
   
-  def direccionAngulo() = vel.direccion
-    
+  def direccionAngulo(posO: Interseccion, camino: Queue[Interseccion]):Double = {
+    var angulo: Double = 0
+    if(!camino.isEmpty){
+      println(camino)
+      println(posO)
+      var a = Simulacion.arrayDeVias.filter(via =>
+        ((via.interO == posO) && (via.interF == camino.front)))
+      if (a.size == 0){
+        a = Simulacion.arrayDeVias.filter(via =>
+        ((via.interF == posO) && (via.interO == camino.front)))
+      }
+      println("primer angulo "+a(0).anguloVia)
+      if(posO.xI > camino.front.xI) angulo = a(0).anguloVia + math.Pi
+      else if(posO.xI == camino.front.xI && posO.yI > camino.front.yI) angulo = a(0).anguloVia + math.Pi
+      else angulo = a(0).anguloVia
+//      println(angulo)
+    }
+    angulo
+  } 
 }

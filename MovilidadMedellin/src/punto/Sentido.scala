@@ -11,6 +11,7 @@ class Sentido(private var _unavia: Boolean, private var _doblevia: Boolean){
   def unavia_= (x: Int): Unit = _unavia = unavia
   
   def doblevia_= (x: Int): Unit = _doblevia = doblevia
+
 }
 
 object Sentido {
