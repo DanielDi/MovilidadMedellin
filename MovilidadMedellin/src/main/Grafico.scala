@@ -27,13 +27,13 @@ import sun.management.GarbageCollectorImpl
 object Grafico extends KeyListener{
   var estadoThread = true                //auxiliar para verificar si el hilo esta corriendo
   
-  var dataset = new XYSeriesCollection()
+  val dataset = new XYSeriesCollection()
     
-  var grafica = ChartFactory.createScatterPlot("", "", "", dataset,PlotOrientation.VERTICAL,false,false,false)
+  val grafica = ChartFactory.createScatterPlot("", "", "", dataset,PlotOrientation.VERTICAL,false,false,false)
   
   var graficaPlot = grafica.getXYPlot() 
   
-  var render = new XYLineAndShapeRenderer()      // Para el diseño de las lineas
+  val render = new XYLineAndShapeRenderer()      // Para el diseño de las lineas
   
   var n = 0                                      //Variable auxiliar para asignar ID a los dataset
   
@@ -64,9 +64,9 @@ object Grafico extends KeyListener{
     graficaPlot.setBackgroundPaint(Color.white)   //Color del fondo
     graficaPlot.setRenderer(render)               //Set de las modificaciones graficas
     
-    var panel = new ChartPanel(grafica)         //donde se dibuja la grafica
+    val panel = new ChartPanel(grafica)         //donde se dibuja la grafica
     
-    var ventana = new JFrame("Proyecto") 
+    val ventana = new JFrame("Proyecto") 
     
     ventana.setVisible(true)
     
@@ -98,7 +98,7 @@ object Grafico extends KeyListener{
       })
     } 
   }
-//  
+   //Función para asignar color según el tipo de vehículo  
   def colorVehiculo(v: Vehiculo): Color = v match {
     case v: Bus => Color.BLUE
     case v: Camion => Color.RED
@@ -111,7 +111,7 @@ object Grafico extends KeyListener{
     Simulacion.arrayDeIntersecciones.clear()
     Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
     Simulacion.arrayDeVehiculos.clear()
-//    println(Simulacion.arrayDeVehiculos.mkString(","))
+    Simulacion.arrayDeVias.clear()
   }
   
   def keyTyped(x: KeyEvent) = {}

@@ -5,8 +5,8 @@ import main.Simulacion
 case class Interseccion(var xI: Double, var yI: Double, var nombre: String) 
 extends Punto(xI,yI) {
   
-  Simulacion.arrayDeIntersecciones += this
-  Simulacion.arrayDeIntersecciones = Simulacion.arrayDeIntersecciones.distinct
+  Simulacion.arrayDeIntersecciones = {Simulacion.arrayDeIntersecciones.append(this)
+    Simulacion.arrayDeIntersecciones.distinct}
   
   def this(x:Double,y:Double){
     this(x,y,"")
