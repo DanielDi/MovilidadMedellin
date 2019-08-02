@@ -1,5 +1,5 @@
 package resultadosSimulacion
 
-case class Tiempos(simulacion: Int, realidad: Int) {
+case class Tiempos(simulacion: Double, realidad: Double) {
   
 }

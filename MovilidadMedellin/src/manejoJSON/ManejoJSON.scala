@@ -67,7 +67,7 @@ class ManejoJSON {
     }
     
     //tiempos
-    var tiempoReal = s.tRefresh * s.t
+    var tiempoReal = (s.tRefresh.toDouble/1000) * s.t/s.dt
     
     //velocidades
     var arrayMagnitudes = s.arrayDeVehiculos.map(_.vel.magnitud)
