@@ -16,6 +16,8 @@ abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion
 
   var path = Queue( GrafoVia.menorCamino(posInicial, posFinal).map(_.toOuter).toSeq : _*) //Convierte nodos a intersecciones
 //  println("ya me cree")
+  var origen = posInicial.copy()
+  
     this.path.dequeue()
 //  println(this.path)
 //  println(vel.direccion.grado)

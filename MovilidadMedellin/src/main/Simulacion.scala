@@ -16,8 +16,8 @@ import main.Main.parametrosSimulacion
 object Simulacion extends Runnable {
   
   var t = 0
-  var dt = parametrosSimulacion.dt
-  var tRefresh = 30//parametrosSimulacion.tRefresh
+  var dt = 1//parametrosSimulacion.dt
+  var tRefresh = parametrosSimulacion.tRefresh
   var vehiculosMin = parametrosSimulacion.vehiculos.minimo
   var vehiculosMax = parametrosSimulacion.vehiculos.maximo
   var velMin = parametrosSimulacion.velocidad.minimo
@@ -36,16 +36,19 @@ object Simulacion extends Runnable {
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
   def run() {
-    println(arrayDeIntersecciones.mkString(","))
-    while(!Simulacion.arrayDeVehiculos.map(_.path).isEmpty) {
+//    println(arrayDeIntersecciones.mkString(","))
+    while(!(Simulacion.arrayDeVehiculos.map(_.path)).filter(!_.isEmpty).isEmpty) {
+//      println(s"*****$t : ${Simulacion.arrayDeVehiculos.map(_.path).mkString(",")}") 
 //     println("Tamaño ArrayIntersecciones en el Run: "+arrayDeIntersecciones.length)
 //     println(arrayDeIntersecciones.mkString(","))
       arrayDeVehiculos.foreach(_.aumentarPosc(dt))
-      t += dt
+      this.t += dt
       Grafico.graficarVehiculos(arrayDeVehiculos)
       
       Thread.sleep(tRefresh)
     }
+    println("tiempo : " + Simulacion.t)
+    Main.llamar
     
   }
   

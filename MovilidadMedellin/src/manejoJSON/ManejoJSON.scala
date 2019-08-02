@@ -36,16 +36,41 @@ class ManejoJSON {
     var viasUnSentido: Int = s.arrayDeVias.filter(_.sentido.unavia).length
     var viasDobleSentido: Int = s.arrayDeVias.filter(_.sentido.doblevia).length
     
-    var longitudPromedio: Double = s.arrayDeVias.map(_.distancia).reduce(_ + _)/s.arrayDeVias.length
+    var longitudPromedio: Double = s.arrayDeVias.map(_.distancia).sum / s.arrayDeVias.length
     
     //vehiculos en intersección
-//    var promedioOrigen: Double = s.arrayDeIntersecciones.length
-//    var promedioDestino: Double = s.arrayDeIntersecciones.length
-//    var sinOrigen = 
-//    var sinDestino =
+    println("INTERSECCIONES: "+s.arrayDeIntersecciones.length)
+    println("VEHICULOS: "+s.arrayDeVehiculos.length)
+    println(s.arrayDeVias.length/s.arrayDeIntersecciones.length)
+    
+    var promedioOrigen: Double = s.arrayDeVehiculos.length / s.arrayDeIntersecciones.length.toDouble
+    var promedioDestino: Double = s.arrayDeVehiculos.length / s.arrayDeIntersecciones.length.toDouble
+    
+    def sinOrigen(): Int = {
+      var intersecciones = s.arrayDeIntersecciones
+      var vehiculos = s.arrayDeVehiculos
+      
+      var count = 0
+      
+      var sinOrigen = intersecciones.map(i => 
+        vehiculos.filter(v => (v.origen == i)).length).filter(_ == 0).length
+      sinOrigen
+    }
+    
+    def sinDestino(): Int = {
+      var intersecciones = s.arrayDeIntersecciones
+      var vehiculos = s.arrayDeVehiculos
+      
+      var count = 0
+      
+      var sinDestino = intersecciones.map(i => 
+        vehiculos.filter(v => (v.posFinal == i)).length).filter(_ == 0).length
+    
+      sinDestino
+    }
     
     //tiempos
-    var tiempoReal = s.tRefresh * s.dt
+    var tiempoReal = s.tRefresh * s.t
     
     //velocidades
     var arrayMagnitudes = s.arrayDeVehiculos.map(_.vel.magnitud)
@@ -55,17 +80,17 @@ class ManejoJSON {
     
     //distancias
     var arrayDistancias = s.arrayDeVias.map(_.distancia)
-    var distanciaMin = arrayDistancias.max.toInt
-    var distanciaMax = arrayDistancias.min.toInt
+    var distanciaMin = arrayDistancias.min.toInt
+    var distanciaMax = arrayDistancias.max.toInt
     var distanciaPromedio = arrayDistancias.reduce(_ + _) / arrayDistancias.length
       
     var vehiculos = new VehiculosR(v.totalVehiculos, v.cCarros, v.cMotos, v.cBuses, v.cCamiones, v.cMotoTaxis)
-    var vehiculosInterseccion = new VehiculosInterseccion(50, 46, 5, 3)
+    var vehiculosInterseccion = new VehiculosInterseccion(promedioOrigen, promedioDestino, sinOrigen, sinDestino)
     var mallaVial = new MallaVial(s.arrayDeVias.length, s.arrayDeIntersecciones.length, viasUnSentido, viasDobleSentido, 
         s.vehiculosMin, s.vehiculosMax, longitudPromedio, vehiculosInterseccion)
     var tiempos = new Tiempos(s.t, tiempoReal)
     var velocidades = new Velocidades(velocidadMinima, velocidadMaxima, velocidadPromedio)
-    var distancias = new Distancias(distanciaMin, distanciaMax, distanciaPromedio.toInt)
+    var distancias = new Distancias(distanciaMin, distanciaMax, distanciaPromedio)
     var resultadosSimulaciones = new ResultadosSimulacion(vehiculos, mallaVial, tiempos, velocidades, distancias)
     
     //Transformamos la instancia ResultadosSimulacion en un String
