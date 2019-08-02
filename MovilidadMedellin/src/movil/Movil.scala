@@ -16,8 +16,6 @@ abstract class Movil {
   def direccionAngulo(posO: Interseccion, camino: Queue[Interseccion]):Double = {
     var angulo: Double = 0
     if(!camino.isEmpty){
-      println(camino)
-      println(posO)
       var a = Simulacion.arrayDeVias.filter(via =>
         ((via.interO == posO) && (via.interF == camino.front)))
       if (a.size == 0){

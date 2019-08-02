@@ -15,13 +15,8 @@ abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion
   val placa: String
 
   var path = Queue( GrafoVia.menorCamino(posInicial, posFinal).map(_.toOuter).toSeq : _*) //Convierte nodos a intersecciones
-<<<<<<< HEAD
-//  println("ya me cree")
   var origen = posInicial.copy()
-  
-=======
->>>>>>> refs/heads/master
-    this.path.dequeue()
+  this.path.dequeue()
   var radioLimite = vel.magnitud * Simulacion.dt
 
   def aumentarPosc(dt: Int) = {
@@ -50,7 +45,6 @@ abstract class Vehiculo(var posInicial: Interseccion, var posFinal: Interseccion
   def distEntreIntersec(actual: Interseccion, fin: Interseccion)= {
     math.pow((math.pow((fin.xI - actual.xI),2) + math.pow((fin.yI - actual.yI),2)),0.5)
   }
-  
 }
 
 object Vehiculo {
@@ -85,24 +79,13 @@ object Vehiculo {
   def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
  
   def crearVehiculos(){
-<<<<<<< HEAD
       
     cBuses = 0
     cCamiones = 0
     cCarros = 0
     cMotos = 0
     cMotoTaxis = 0
-//    var a = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Monterrey")(0))
-//    var b = Simulacion.arrayDeIntersecciones.indexOf(Simulacion.arrayDeIntersecciones.filter(p => p.nombre=="Col Reg")(0))
-//    Simulacion.arrayDeVehiculos +=(new Carro(Simulacion.arrayDeIntersecciones(a).copy(),Simulacion.arrayDeIntersecciones(b).copy(),new Velocidad(30,new Angulo(0))))
-=======
-    var cBuses = 0
-	  var cCamiones = 0
-	  var cCarros = 0
-	  var cMotos = 0
-	  var cMotoTaxis = 0
 
->>>>>>> refs/heads/master
     while (Simulacion.arrayDeVehiculos.length < totalVehiculos) {
   	  var r = Random.nextInt(5)
   		var posiciones = genPosiciones()
@@ -110,41 +93,31 @@ object Vehiculo {
   	  r match {
     		case 0 => {		  
     		  if (cBuses < buses) {
-    		    println("bus")
     			  Simulacion.arrayDeVehiculos += new Bus(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
-    		    println("Bus"+" "+posiciones._1+" "+posiciones._2)
     			  cBuses += 1	    
     		  }
     		}		
     		case 1 => {
     		  if (cCamiones < camiones) {
-    		    println("camion")
     			  Simulacion.arrayDeVehiculos += new Camion(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0))) 
-    			  println("Camion"+" "+posiciones._1+" "+posiciones._2)
     			  cCamiones += 1
     		  }
     		}		
     		case 2 => {
     		  if (cCarros < carros) {
-    		    println("carro")
     			  Simulacion.arrayDeVehiculos += new Carro(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
-					  println("Carro"+" "+posiciones._1+" "+posiciones._2)
     		    cCarros += 1
     		  }
     		}
     		case 3 => {
     		  if (cMotos < motos) {
-    		    println("Moto")
     			  Simulacion.arrayDeVehiculos += new Moto(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
-					  println("Moto"+" "+posiciones._1+" "+posiciones._2)
     		    cMotos += 1
     		  }
     		}
     		case 4 => {
     		  if (cMotoTaxis < motoTaxis) {
-    		    println("motoT")
     			  Simulacion.arrayDeVehiculos += new MotoTaxi(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
-    		    println("MotoTaxi"+" "+posiciones._1+" "+posiciones._2)
     			  cMotoTaxis += 1
     		  }
     		}

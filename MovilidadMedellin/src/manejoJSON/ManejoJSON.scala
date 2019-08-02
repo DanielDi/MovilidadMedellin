@@ -38,11 +38,8 @@ class ManejoJSON {
     
     var longitudPromedio: Double = s.arrayDeVias.map(_.distancia).sum / s.arrayDeVias.length
     
-    //vehiculos en intersección
-    println("INTERSECCIONES: "+s.arrayDeIntersecciones.length)
-    println("VEHICULOS: "+s.arrayDeVehiculos.length)
-    println(s.arrayDeVias.length/s.arrayDeIntersecciones.length)
     
+    //vehiculos en intersección
     var promedioOrigen: Double = s.arrayDeVehiculos.length / s.arrayDeIntersecciones.length.toDouble
     var promedioDestino: Double = s.arrayDeVehiculos.length / s.arrayDeIntersecciones.length.toDouble
     

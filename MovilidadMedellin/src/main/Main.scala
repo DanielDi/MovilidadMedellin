@@ -4,20 +4,11 @@ import manejoJSON.ManejoJSON
 import movil.Vehiculo
 
 object Main extends App {
-<<<<<<< HEAD
-  
+
     val ruta = "C:\\Users\\nclsc\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
-=======
-  val ruta = "C:\\Users\\nclsc\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
-//  val ruta = "C:\\Users\\MSI-PC\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
->>>>>>> refs/heads/master
 //  val ruta = "C:\\Users\\sebas\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
-<<<<<<< HEAD
 //  val ruta = "C:\\Users\\MSI-PC\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
   //val ruta = "C:\\Users\\DELL\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
-=======
-//  val ruta = "C:\\Users\\DELL\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
->>>>>>> refs/heads/master
   val archivoParametros = "parametros.json"
   val archivoResultados = "resultados.json"
   
@@ -34,7 +25,6 @@ object Main extends App {
 	  Simulacion.hilo = new Thread(Simulacion)
     Vehiculo.crearVehiculos()
     Simulacion.iniciar
-    println("tiempo : " + Simulacion.t)
   }
     
     def llamar = manejoJSON.escribirArchivoResultados(ruta + archivoResultados)
