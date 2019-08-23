@@ -2,15 +2,17 @@ package main
 
 import scala.collection.mutable.ArrayBuffer
 
-import movil.Vehiculo
+import movil._
 import punto.Via
-import movil.Vehiculo
 import punto.Interseccion
-import punto.Via
 import punto.TipoVia
 import punto.Sentido
+import punto.Interseccion
+import punto.Angulo
+import punto.Velocidad
 import scala.collection.mutable.ArrayBuffer
 import main.Main.parametrosSimulacion
+import scala.util.Random
 
 
 object Simulacion extends Runnable {
@@ -59,6 +61,83 @@ object Simulacion extends Runnable {
      arrayDeIntersecciones.clear()
      arrayDeVias.clear()
    }
+  
+  def genPosiciones(): (Interseccion, Interseccion) = {
+    var posIni = Random.nextInt(arrayDeIntersecciones.length)      
+    var posFin = {
+      var r = Random.nextInt(arrayDeIntersecciones.length)
+      while(r == posIni){
+        r = Random.nextInt(arrayDeIntersecciones.length)
+      }
+      r
+    }
+    (Simulacion.arrayDeIntersecciones(posIni).copy(), Simulacion.arrayDeIntersecciones(posFin).copy())    
+  }
+  
+  var totalVehiculos = vehiculosMin + Random.nextInt(vehiculosMax - vehiculosMin + 1)
+  
+  val buses = totalVehiculos * propBuses
+  val camiones = totalVehiculos * propCamiones
+  val carros = totalVehiculos * propCarros
+  val motos = totalVehiculos * propMotos
+  val motoTaxis = totalVehiculos * propMotoTaxis
+  
+  var cBuses = 0
+  var cCamiones = 0
+  var cCarros = 0
+  var cMotos = 0
+  var cMotoTaxis = 0
+  
+  def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
+   
+  def crearVehiculos(){
+      
+    cBuses = 0
+    cCamiones = 0
+    cCarros = 0
+    cMotos = 0
+    cMotoTaxis = 0
+
+    while (arrayDeVehiculos.length < totalVehiculos) {
+  	  var r = Random.nextInt(5)
+  		var posiciones = genPosiciones()
+  	  
+  	  r match {
+    		case 0 => {		  
+    		  if (cBuses < buses) {
+    			  arrayDeVehiculos += new Bus(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  cBuses += 1	    
+    		  }
+    		}		
+    		case 1 => {
+    		  if (cCamiones < camiones) {
+    			  arrayDeVehiculos += new Camion(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  cCamiones += 1
+    		  }
+    		}		
+    		case 2 => {
+    		  if (cCarros < carros) {
+    			  arrayDeVehiculos += new Carro(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    		    cCarros += 1
+    		  }
+    		}
+    		case 3 => {
+    		  if (cMotos < motos) {
+    			  arrayDeVehiculos += new Moto(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    		    cMotos += 1
+    		  }
+    		}
+    		case 4 => {
+    		  if (cMotoTaxis < motoTaxis) {
+    			  arrayDeVehiculos += new MotoTaxi(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  cMotoTaxis += 1
+    		  }
+    		}
+  	  }
+    }
+    
+    arrayDeVehiculos.foreach(vehi => vehi.vel.direccion.grado = vehi.direccionAngulo(vehi.posInicial,vehi.path))
+  }
     
   def iniciarVias{
     

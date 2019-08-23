@@ -1,5 +1,5 @@
 package punto
 
-class Angulo(var grado: Double){
+case class Angulo(var grado: Double){
   
 }

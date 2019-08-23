@@ -1,6 +1,6 @@
 package punto
 
-class Velocidad(var magnitud: Double, var direccion: Angulo) {
+case class Velocidad(var magnitud: Double, var direccion: Angulo) {
   
 }
 

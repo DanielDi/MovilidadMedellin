@@ -10,7 +10,6 @@ abstract class Movil {
   var posInicial: Interseccion
   var posFinal: Interseccion
   var vel: Velocidad
-  var path: Queue[Interseccion]
   def aumentarPosc(dt: Int)  
   
   def direccionAngulo(posO: Interseccion, camino: Queue[Interseccion]):Double = {

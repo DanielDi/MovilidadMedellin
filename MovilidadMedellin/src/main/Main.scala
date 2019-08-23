@@ -5,8 +5,8 @@ import movil.Vehiculo
 
 object Main extends App {
 
-  val ruta = "C:\\Users\\nclsc\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
- //   val ruta = "C:\\Users\\sebas\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
+ // val ruta = "C:\\Users\\nclsc\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
+ //  val ruta = "C:\\Users\\Sebastian\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
 //  val ruta = "C:\\Users\\MSI-PC\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
   //val ruta = "C:\\Users\\DELL\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
   val archivoParametros = "parametros.json"
@@ -23,7 +23,7 @@ object Main extends App {
     Simulacion.iniciarVias
 	  Simulacion.crearGrafo
 	  Simulacion.hilo = new Thread(Simulacion)
-    Vehiculo.crearVehiculos()
+    Simulacion.crearVehiculos()
     Simulacion.iniciar
   }
     

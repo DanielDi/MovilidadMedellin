@@ -81,7 +81,7 @@ class ManejoJSON {
     var distanciaMax = arrayDistancias.max.toInt
     var distanciaPromedio = arrayDistancias.reduce(_ + _) / arrayDistancias.length
       
-    var vehiculos = new VehiculosR(v.totalVehiculos, v.cCarros, v.cMotos, v.cBuses, v.cCamiones, v.cMotoTaxis)
+    var vehiculos = new VehiculosR(s.totalVehiculos, s.cCarros, s.cMotos, s.cBuses, s.cCamiones, s.cMotoTaxis)
     var vehiculosInterseccion = new VehiculosInterseccion(promedioOrigen, promedioDestino, sinOrigen, sinDestino)
     var mallaVial = new MallaVial(s.arrayDeVias.length, s.arrayDeIntersecciones.length, viasUnSentido, viasDobleSentido, 
         s.vehiculosMin, s.vehiculosMax, longitudPromedio, vehiculosInterseccion)

@@ -1,6 +1,6 @@
 package punto
 
-class Sentido(private var _unavia: Boolean, private var _doblevia: Boolean){
+case class Sentido(private var _unavia: Boolean, private var _doblevia: Boolean){
   
   //Accesor 
   def unavia = _unavia
@@ -16,9 +16,9 @@ class Sentido(private var _unavia: Boolean, private var _doblevia: Boolean){
 
 object Sentido {
   
-  def dobleVia() = new Sentido(false,true)
+  def dobleVia() = Sentido(false,true)
 
   
-  def unaVia() = new Sentido(true,false)
+  def unaVia() = Sentido(true,false)
   
 }
