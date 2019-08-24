@@ -55,7 +55,7 @@ object Grafico extends KeyListener{
     })
                                                     //Añadir intersecciones a la gráfica
     intersecciones.foreach({
-      x => val interseccion = new XYTextAnnotation(x.nombre,x.xI,x.yI+0.1)
+      x => val interseccion = new XYTextAnnotation(x.nombre.getOrElse("Sin nombre"),x.xI,x.yI+0.1)
       graficaPlot.addAnnotation(interseccion)
     })
     graficaPlot.getRangeAxis().setVisible(false)   // ocultar eje x

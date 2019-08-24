@@ -8,7 +8,7 @@ import scala.collection.mutable.Queue
 abstract class Movil {
 
   var vel: Velocidad
-  def aumentarPosc(dt: Int, posInicial: Interseccion, path: Queue[Interseccion]): (Interseccion, Queue[Interseccion])  
+  //def aumentarPosc(dt: Int)  
   
   def direccionAngulo(posO: Interseccion, camino: Queue[Interseccion]):Double = {
     var angulo: Double = 0
