@@ -4,8 +4,8 @@ import punto.Velocidad
 import punto.Interseccion
 import scala.util.Random
 
-class Bus(velocidad: Velocidad) 
-extends Vehiculo(velocidad) with MovimientoUniforme{
+class Bus(velocidad: Int, ac:Int) 
+extends Vehiculo(velocidad, ac) with MovimientoUniforme{
 
   val placa = (List.fill(3)((65 + Random.nextInt(26)).toChar) ::: List.fill(3)(Random.nextInt(10))).mkString
   

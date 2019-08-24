@@ -1,9 +1,11 @@
 package semaforo
 
-import punto.Interseccion
+import punto.Via
 import main.Simulacion
+import punto.Interseccion
 
-case class Semaforo (val ubicacion: Interseccion) (val tiempoV: Int, val tiempoA: Int){
+case class Semaforo (val via: Via, val ubicacion: Interseccion) (val tiempoV: Int, val tiempoA: Int){
+  
   
   Simulacion.arrayDeSemaforos += this
   

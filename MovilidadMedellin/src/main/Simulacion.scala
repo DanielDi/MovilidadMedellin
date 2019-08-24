@@ -26,6 +26,13 @@ object Simulacion extends Runnable {
   val vehiculosMax = parametrosSimulacion.vehiculos.maximo
   val velMin = parametrosSimulacion.velocidad.minimo
   val velMax = parametrosSimulacion.velocidad.maximo
+  val acMin = 20
+  val acMax = 50
+  val minTVerde = 20
+  val maxTVerde=  40
+  val tAmarillo = 3
+  val XSemaforoF = 40
+  val XSemaAmaC = 20
 
   var propCarros = parametrosSimulacion.proporciones.carros
   var propMotos = parametrosSimulacion.proporciones.motos
@@ -45,6 +52,7 @@ object Simulacion extends Runnable {
   var arrayDeNodoSema = ArrayBuffer[NodoSemaforo]()
   
   def run() {
+    arrayDeNodoSema.foreach(_.arraySemaforo(0).Estado = "Verde")
     while(!(Simulacion.arrayDeViajes.map(_.path)).filter(!_.isEmpty).isEmpty) {
 
       arrayDeViajes.foreach(_.aumentarPosc(dt))
@@ -70,9 +78,9 @@ object Simulacion extends Runnable {
   
   def crearSemaforo(){
     arrayDeVias.foreach(via => if(via.sentido.doblevia){
-                                 Semaforo(via.interO)(20,3)
-                                 Semaforo(via.interF)(20,3)
-                                }else Semaforo(via.interO)(20,3))
+                                 Semaforo(via,via.interO)(genTVerde(),tAmarillo)
+                                 Semaforo(via,via.interF)(genTVerde(),tAmarillo)
+                                }else Semaforo(via,via.interF)(genTVerde(),tAmarillo))
    arrayDeSemaforos.foreach(sema => if(arrayDeNodoSema.filter(_.inter == sema.ubicacion).size == 0){
                                     var nodo = NodoSemaforo(sema.ubicacion)
                                     nodo.arraySemaforo += sema
@@ -105,7 +113,9 @@ object Simulacion extends Runnable {
   var cMotos = 0
   var cMotoTaxis = 0
   
-  def genVelocidad(): Int = Simulacion.velMin + Random.nextInt(Simulacion.velMax - Simulacion.velMin + 1)
+  def genVelocidad(): Int = velMin + Random.nextInt(velMax - velMin + 1)
+  def genTasaAc(): Int = acMin + Random.nextInt(acMax - acMin + 1)
+  def genTVerde(): Int = minTVerde + Random.nextInt(maxTVerde - minTVerde + 1)
    
   def crearVehiculos(){
       
@@ -123,7 +133,7 @@ object Simulacion extends Runnable {
     		case 0 => {
     		  
     		  if (cBuses < buses) {
-    		    var bus = new Bus(new Velocidad(genVelocidad(), new Angulo(0)))  
+    		    var bus = new Bus( genVelocidad() ,genTasaAc())  
     			  arrayDeVehiculos += bus
     			  arrayDeViajes += Viaje(bus)(posiciones._1, posiciones._2) 
     			  cBuses += 1	    
@@ -131,7 +141,7 @@ object Simulacion extends Runnable {
     		}		
     		case 1 => {
     		  if (cCamiones < camiones) {
-    		    var camion = new Camion(new Velocidad(genVelocidad(), new Angulo(0))) 
+    		    var camion = new Camion(genVelocidad() ,genTasaAc()) 
     			  arrayDeVehiculos += camion
     		    arrayDeViajes += Viaje(camion)(posiciones._1, posiciones._2)  
     			  cCamiones += 1
@@ -139,7 +149,7 @@ object Simulacion extends Runnable {
     		}		
     		case 2 => {
     		  if (cCarros < carros) {
-    			  var carro = new Carro(new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  var carro = new Carro(genVelocidad() ,genTasaAc()) 
     			  arrayDeVehiculos += carro
     		    arrayDeViajes += Viaje(carro)(posiciones._1, posiciones._2)  
     		    cCarros += 1
@@ -147,7 +157,7 @@ object Simulacion extends Runnable {
     		}
     		case 3 => {
     		  if (cMotos < motos) {
-    			  var moto = new Moto(new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  var moto = new Moto(genVelocidad() ,genTasaAc()) 
     			  arrayDeVehiculos += moto 
     		    arrayDeViajes += Viaje(moto)(posiciones._1, posiciones._2)  
     		    cMotos += 1
@@ -155,7 +165,7 @@ object Simulacion extends Runnable {
     		}
     		case 4 => {
     		  if (cMotoTaxis < motoTaxis) {
-    			  var motoTaxi = new MotoTaxi(new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  var motoTaxi = new MotoTaxi(genVelocidad(),genTasaAc()) 
     			  arrayDeVehiculos += motoTaxi
     		    arrayDeViajes += Viaje(motoTaxi)(posiciones._1, posiciones._2)  
     			  cMotoTaxis += 1

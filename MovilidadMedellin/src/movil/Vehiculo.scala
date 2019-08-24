@@ -6,12 +6,14 @@ import punto.Interseccion
 import punto.Angulo
 import main.GrafoVia
 import scala.collection.mutable.Queue
+import scala.util.Random
 
 
-abstract case class Vehiculo(private var _vel: Velocidad) extends Movil {
+abstract case class Vehiculo(var velCru: Int, tasaAc:Int) extends Movil {
   
+  private var _vel = Velocidad(0.0, new Angulo(0))
+  var tasaDes = 0.0
   val placa: String
-  
   
   //Accesor
   def vel = _vel
