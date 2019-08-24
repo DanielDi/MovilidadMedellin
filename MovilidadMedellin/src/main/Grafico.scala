@@ -82,7 +82,8 @@ object Grafico extends KeyListener{
   def graficarVehiculos(vehiculos: ArrayBuffer[Vehiculo]){
     if(dataset.getSeriesCount  == numVias){    	                //Si no hay carros 
 			vehiculos.foreach({v => val vehiculo = new XYSeries(n)    // Añadir Data set 
-  			vehiculo.add(v.posInicial.xI,v.posInicial.yI)
+  		var viaje = Simulacion.arrayDeViajes.filter(_.vehiculo == v)(0)  		
+			vehiculo.add(viaje.posInicial.xI,viaje.posInicial.yI)
   			dataset.addSeries(vehiculo)
   			render.setSeriesPaint(n, colorVehiculo(v))
   			render.setSeriesShapesVisible(n, true)
@@ -93,7 +94,8 @@ object Grafico extends KeyListener{
       var x = numVias
       vehiculos.foreach({v =>
         dataset.getSeries(x).remove(0)                          // Quitar punto anterior
-        dataset.getSeries(x).add(v.posInicial.xI, v.posInicial.yI)  //Asignar punto nuevo
+        var viaje = Simulacion.arrayDeViajes.filter(_.vehiculo == v)(0)
+        dataset.getSeries(x).add(viaje.posInicial.xI, viaje.posInicial.yI)  //Asignar punto nuevo
         x += 1
       })
     } 
@@ -112,6 +114,7 @@ object Grafico extends KeyListener{
     Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
     Simulacion.arrayDeVehiculos.clear()
     Simulacion.arrayDeVias.clear()
+    Simulacion.arrayDeViajes.clear()
   }
   
   def keyTyped(x: KeyEvent) = {}

@@ -13,5 +13,5 @@ extends Punto(xI,yI) {
   }
   
   override
-  def toString()= this.nombre +this.xI+this.yI
+  def toString()= s"$nombre $xI $yI"
 }

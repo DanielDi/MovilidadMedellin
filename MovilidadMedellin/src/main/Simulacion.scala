@@ -38,10 +38,11 @@ object Simulacion extends Runnable {
   var arrayDeVehiculos = ArrayBuffer[Vehiculo]()  
   var arrayDeVias = ArrayBuffer[Via]()
   var arrayDeIntersecciones = ArrayBuffer[Interseccion]()
+  var arrayDeViajes = ArrayBuffer[Viaje]()
   def run() {
-    while(!(Simulacion.arrayDeVehiculos.map(_.path)).filter(!_.isEmpty).isEmpty) {
+    while(!(Simulacion.arrayDeViajes.map(_.path)).filter(!_.isEmpty).isEmpty) {
 
-      arrayDeVehiculos.foreach(_.aumentarPosc(dt))
+      arrayDeViajes.foreach(_.mover(dt))
       this.t += dt
       Grafico.graficarVehiculos(arrayDeVehiculos)
       
@@ -103,40 +104,57 @@ object Simulacion extends Runnable {
   		var posiciones = genPosiciones()
   	  
   	  r match {
-    		case 0 => {		  
+    		case 0 => {
+    		  
     		  if (cBuses < buses) {
-    			  arrayDeVehiculos += new Bus(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    		    var bus = new Bus(new Velocidad(genVelocidad(), new Angulo(0)))  
+    			  arrayDeVehiculos += bus
+    			  arrayDeViajes += Viaje(bus)(posiciones._1, posiciones._2) 
     			  cBuses += 1	    
     		  }
     		}		
     		case 1 => {
     		  if (cCamiones < camiones) {
-    			  arrayDeVehiculos += new Camion(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0))) 
+    		    var camion = new Camion(new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  arrayDeVehiculos += camion
+    		    arrayDeViajes += Viaje(camion)(posiciones._1, posiciones._2)  
     			  cCamiones += 1
     		  }
     		}		
     		case 2 => {
     		  if (cCarros < carros) {
-    			  arrayDeVehiculos += new Carro(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  var carro = new Carro(new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  arrayDeVehiculos += carro
+    		    arrayDeViajes += Viaje(carro)(posiciones._1, posiciones._2)  
     		    cCarros += 1
     		  }
     		}
     		case 3 => {
     		  if (cMotos < motos) {
-    			  arrayDeVehiculos += new Moto(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  var moto = new Moto(new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  arrayDeVehiculos += moto 
+    		    arrayDeViajes += Viaje(moto)(posiciones._1, posiciones._2)  
     		    cMotos += 1
     		  }
     		}
     		case 4 => {
     		  if (cMotoTaxis < motoTaxis) {
-    			  arrayDeVehiculos += new MotoTaxi(posiciones._1, posiciones._2, new Velocidad(genVelocidad(), new Angulo(0)))
+    			  var motoTaxi = new MotoTaxi(new Velocidad(genVelocidad(), new Angulo(0))) 
+    			  arrayDeVehiculos += motoTaxi
+    		    arrayDeViajes += Viaje(motoTaxi)(posiciones._1, posiciones._2)  
     			  cMotoTaxis += 1
     		  }
     		}
   	  }
     }
     
-    arrayDeVehiculos.foreach(vehi => vehi.vel.direccion.grado = vehi.direccionAngulo(vehi.posInicial,vehi.path))
+    arrayDeVehiculos.foreach(vehi => vehi.vel.direccion.grado = {
+      var viaje = arrayDeViajes.filter(_.vehiculo == vehi)(0)
+      var d = vehi.direccionAngulo(viaje.posInicial.copy(), viaje.path)
+      println(d)
+      println("Posc ini: " + viaje.posInicial)
+      d
+    })
   }
     
   def iniciarVias{

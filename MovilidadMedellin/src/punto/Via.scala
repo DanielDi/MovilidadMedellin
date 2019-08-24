@@ -8,4 +8,6 @@ extends Recta{
   var fin= interF
   val distancia = math.pow((math.pow((fin.xI - origen.xI),2) + math.pow((fin.yI - origen.yI),2)),0.5)
   var anguloVia = angulo()
+  
+  println(anguloVia)
 }  

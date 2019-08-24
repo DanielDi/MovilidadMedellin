@@ -46,22 +46,24 @@ class ManejoJSON {
     def sinOrigen(): Int = {
       var intersecciones = s.arrayDeIntersecciones
       var vehiculos = s.arrayDeVehiculos
+      var viajes = s.arrayDeViajes
       
       var count = 0
       
       var sinOrigen = intersecciones.map(i => 
-        vehiculos.filter(v => (v.origen == i)).length).filter(_ == 0).length
+        viajes.filter(v => (v.origen == i)).length).filter(_ == 0).length
       sinOrigen
     }
     
     def sinDestino(): Int = {
       var intersecciones = s.arrayDeIntersecciones
       var vehiculos = s.arrayDeVehiculos
+      var viajes = s.arrayDeViajes
       
       var count = 0
       
       var sinDestino = intersecciones.map(i => 
-        vehiculos.filter(v => (v.posFinal == i)).length).filter(_ == 0).length
+        viajes.filter(v => (v.posFinal == i)).length).filter(_ == 0).length
     
       sinDestino
     }
