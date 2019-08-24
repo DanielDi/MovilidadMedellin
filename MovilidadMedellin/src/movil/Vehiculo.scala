@@ -20,6 +20,5 @@ abstract case class Vehiculo(var velCru: Int, tasaAc:Int) extends Movil {
   
   //Mutator
   def vel_= (vel: Velocidad): Unit = _vel = vel
-  
-  //def aumentarPosc(posc: Any) ={}
+ 
 }

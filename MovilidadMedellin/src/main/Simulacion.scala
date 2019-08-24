@@ -16,7 +16,6 @@ import scala.util.Random
 import semaforo.Semaforo
 import semaforo.NodoSemaforo
 
-
 object Simulacion extends Runnable {
   
   var t = 0
