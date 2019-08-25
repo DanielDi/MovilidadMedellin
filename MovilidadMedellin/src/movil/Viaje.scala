@@ -4,6 +4,8 @@ import main.{Simulacion=> s}
 import punto.Interseccion
 import main.GrafoVia
 import semaforo._
+import punto.Via
+import punto.CamaraFotoDeteccion
 
 import scala.collection.mutable.Queue
 
@@ -11,16 +13,20 @@ case class Viaje(var vehiculo: Vehiculo)(var posInicial: Interseccion, var posFi
   
   var path = Queue(GrafoVia.menorCamino(posInicial, posFinal).map(_.toOuter).toSeq : _*) //Convierte nodos a intersecciones
   var origen = posInicial.copy()
-  var auxpos=this.path.dequeue() 
-  var radioLimite = vehiculo.vel.magnitud*s.dt
+  var radioLimite = vehiculo.vel.magnitud*s.dt 
+  var auxPos = this.path.dequeue().copy()
   
   def aumentarPosc(dt: Int) = {
+     var posAntX = posInicial.xI
+    var posAntY = posInicial.yI
     radioLimite = vehiculo.vel.magnitud*s.dt
     if(!path.isEmpty){
       var nodo= s.arrayDeNodoSema.filter(_.inter == path.front)(0)
-      var viaac = s.arrayDeVias.filter(v => (v.interO == auxpos) && (v.interF == path.front)) //viaac = via_actual
-      if(viaac.size == 0) viaac= s.arrayDeVias.filter(v => (v.interO == path.front) && (v.interF == auxpos)) 
+      var viaac = s.arrayDeVias.filter(v => (v.interO == auxPos) && (v.interF == path.front)) //viaac = via_actual
+      if(viaac.size == 0) viaac= s.arrayDeVias.filter(v => (v.interO == path.front) && (v.interF == auxPos)) 
 		  var sema = nodo.arraySemaforo.filter(_.via == viaac(0))(0)
+      var viaAux = s.arrayDeVias.filter(p => p.interO == auxPos && p.interF == path.front)
+      if(viaAux.isEmpty) viaAux = s.arrayDeVias.filter(p => p.interF == auxPos && p.interO == path.front)
     	var d= distEntreIntersec(posInicial,path.front)
       
     	if(((d <= s.XSemaforoF && d > s.XSemaAmaC) && (sema.estado =="Rojo" || sema.estado =="Amarillo")) || 
@@ -40,8 +46,7 @@ case class Viaje(var vehiculo: Vehiculo)(var posInicial: Interseccion, var posFi
     	    vehiculo.vel.magnitud = 0
     	    posInicial = path.front.copy()
     	  }
-    	  
-    	  var tup = formaAumentoPosicion(vehiculo.vel, dt)
+			var tup = formaAumentoPosicion(vehiculo.vel, dt)
 						posInicial.xI += tup._1
 						posInicial.yI += tup._2
 			}else{
@@ -55,12 +60,14 @@ case class Viaje(var vehiculo: Vehiculo)(var posInicial: Interseccion, var posFi
 			 
 				else {
 				  posInicial = path.front.copy()
-				  auxpos=path.dequeue()
+				  auxPos=path.dequeue()
   				if(!path.isEmpty) vehiculo.vel.direccion.grado = vehiculo.direccionAngulo(posInicial, path)			  
 				}
 				  
-			}
-		}
+		  }
+      if(viaAux(0).camara.isDefined) viaAux(0).camara.get.deteccionVelocidad(vehiculo, viaAux(0),posAntX,posAntY ,posInicial)
+    }
+    
   }
   
   def distEntreIntersec(actual: Interseccion, fin: Interseccion)= {
