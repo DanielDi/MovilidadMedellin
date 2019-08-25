@@ -9,5 +9,5 @@ case class Semaforo (val via: Via, val ubicacion: Interseccion) (val tiempoV: In
   
   Simulacion.arrayDeSemaforos += this
   
-  var Estado = "Rojo"
+  var estado = "Rojo"
 }

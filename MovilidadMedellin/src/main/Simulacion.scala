@@ -20,18 +20,18 @@ object Simulacion extends Runnable {
   
   var t = 0
   var dt = parametrosSimulacion.dt
-  var tRefresh = parametrosSimulacion.tRefresh
+  var tRefresh = 10 //parametrosSimulacion.tRefresh
   val vehiculosMin = parametrosSimulacion.vehiculos.minimo
   val vehiculosMax = parametrosSimulacion.vehiculos.maximo
   val velMin = parametrosSimulacion.velocidad.minimo
   val velMax = parametrosSimulacion.velocidad.maximo
   val acMin = 20
   val acMax = 50
-  val minTVerde = 20
-  val maxTVerde=  40
+  val minTVerde = 50
+  val maxTVerde=  100
   val tAmarillo = 3
-  val XSemaforoF = 40
-  val XSemaAmaC = 20
+  val XSemaforoF = 400
+  val XSemaAmaC = 200
 
   var propCarros = parametrosSimulacion.proporciones.carros
   var propMotos = parametrosSimulacion.proporciones.motos
@@ -51,9 +51,10 @@ object Simulacion extends Runnable {
   var arrayDeNodoSema = ArrayBuffer[NodoSemaforo]()
   
   def run() {
-    arrayDeNodoSema.foreach(_.arraySemaforo(0).Estado = "Verde")
+    arrayDeNodoSema.foreach(_.arraySemaforo(0).estado = "Verde")
     while(!(Simulacion.arrayDeViajes.map(_.path)).filter(!_.isEmpty).isEmpty) {
-
+      
+      arrayDeNodoSema.foreach(_.cambioSemaforo())
       arrayDeViajes.foreach(_.aumentarPosc(dt))
       this.t += dt
       Grafico.graficarVehiculos(arrayDeVehiculos)
@@ -84,7 +85,9 @@ object Simulacion extends Runnable {
                                     var nodo = NodoSemaforo(sema.ubicacion)
                                     nodo.arraySemaforo += sema
                                     }else arrayDeNodoSema.find(_.inter == sema.ubicacion).get.arraySemaforo += sema)
+                                    
   }
+  
   
   def genPosiciones(): (Interseccion, Interseccion) = {
     var posIni = Random.nextInt(arrayDeIntersecciones.length)      
@@ -124,7 +127,12 @@ object Simulacion extends Runnable {
     cMotos = 0
     cMotoTaxis = 0
     
-    while (arrayDeVehiculos.length < 2) {
+    var bus = new Bus(genVelocidad() ,genTasaAc())
+    arrayDeVehiculos += bus
+    arrayDeViajes += Viaje(bus)(arrayDeIntersecciones(1).copy(), arrayDeIntersecciones(33).copy())
+    
+    
+    while (arrayDeVehiculos.length < totalVehiculos) {
   	  var r = Random.nextInt(5)
   		var posiciones = genPosiciones()
   	  
@@ -176,8 +184,6 @@ object Simulacion extends Runnable {
     arrayDeVehiculos.foreach(vehi => vehi.vel.direccion.grado = {
       var viaje = arrayDeViajes.filter(_.vehiculo.placa == vehi.placa)(0)
       var d = vehi.direccionAngulo(viaje.posInicial.copy(), viaje.path)
-      println(d)
-      println("Posc ini: " + viaje.posInicial)
       d
     })
   }

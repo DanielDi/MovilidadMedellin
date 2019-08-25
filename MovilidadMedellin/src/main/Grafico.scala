@@ -82,7 +82,7 @@ object Grafico extends KeyListener{
   def graficarVehiculos(vehiculos: ArrayBuffer[Vehiculo]){
     if(dataset.getSeriesCount  == numVias){    	                //Si no hay carros 
 			vehiculos.foreach({v => val vehiculo = new XYSeries(n)    // Añadir Data set 
-  		var viaje = Simulacion.arrayDeViajes.filter(_.vehiculo == v)(0)  		
+  		var viaje = Simulacion.arrayDeViajes.filter(_.vehiculo.placa == v.placa)(0)  		
 			vehiculo.add(viaje.posInicial.xI,viaje.posInicial.yI)
   			dataset.addSeries(vehiculo)
   			render.setSeriesPaint(n, colorVehiculo(v))
@@ -94,7 +94,7 @@ object Grafico extends KeyListener{
       var x = numVias
       vehiculos.foreach({v =>
         dataset.getSeries(x).remove(0)                          // Quitar punto anterior
-        var viaje = Simulacion.arrayDeViajes.filter(_.vehiculo == v)(0)
+        var viaje = Simulacion.arrayDeViajes.filter(_.vehiculo.placa == v.placa)(0)
         dataset.getSeries(x).add(viaje.posInicial.xI, viaje.posInicial.yI)  //Asignar punto nuevo
         x += 1
       })
