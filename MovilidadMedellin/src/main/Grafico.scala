@@ -1,7 +1,6 @@
 package main
 
-import punto.Interseccion
-import punto.Via
+import punto._
 import movil._
 import scala.collection.mutable.ArrayBuffer
 import org.jfree.chart.ChartFactory
@@ -39,8 +38,8 @@ object Grafico extends KeyListener{
   
   var numVias = 0                         //auxuliar que guarda la posición el primer vehiculo en el dataset. El numero de vias.
     
-  def graficarVias(vias:ArrayBuffer[Via], intersecciones:ArrayBuffer[Interseccion]){
-    numVias = vias.length                
+  def graficarVias(vias:ArrayBuffer[Via], intersecciones:ArrayBuffer[Interseccion], camaras:ArrayBuffer[CamaraFotoDeteccion]){
+    numVias = vias.length + camaras.length          
     render.setStroke(new BasicStroke(4))           //Asigna grosor
     render.setBaseShapesVisible(true)              //Poner visibilidad de los puntos
     render.setBaseSeriesVisible(true)              //Hacer visibles las lineas
@@ -58,6 +57,14 @@ object Grafico extends KeyListener{
       x => val interseccion = new XYTextAnnotation(x.nombre.getOrElse("Sin nombre"),x.xI,x.yI+0.1)
       graficaPlot.addAnnotation(interseccion)
     })
+                                                    //Graficar Camaras
+    camaras.foreach({x => val cam = new XYSeries(n)
+      cam.add(x.x, x.y)
+      dataset.addSeries(cam)
+      render.setSeriesPaint(n,Color.BLUE)
+      n+=1
+    })
+    
     graficaPlot.getRangeAxis().setVisible(false)   // ocultar eje x
     graficaPlot.getDomainAxis().setVisible(false)   // ocultar eje y
     graficaPlot.setDomainGridlinesVisible(false)   //Quitar la grilla
@@ -102,7 +109,7 @@ object Grafico extends KeyListener{
   }
    //Función para asignar color según el tipo de vehículo  
   def colorVehiculo(v: Vehiculo): Color = v match {
-    case v: Bus => Color.BLUE
+    case v: Bus => Color.BLACK
     case v: Camion => Color.RED
     case v: Carro => Color.GREEN
     case v: Moto => Color.MAGENTA
@@ -115,6 +122,7 @@ object Grafico extends KeyListener{
     Simulacion.arrayDeVehiculos.clear()
     Simulacion.arrayDeVias.clear()
     Simulacion.arrayDeViajes.clear()
+    Simulacion.camaras.clear()
   }
   
   def keyTyped(x: KeyEvent) = {}
