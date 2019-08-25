@@ -115,6 +115,8 @@ object Grafico extends KeyListener{
     Simulacion.arrayDeVehiculos.clear()
     Simulacion.arrayDeVias.clear()
     Simulacion.arrayDeViajes.clear()
+    Simulacion.arrayDeSemaforos.clear()
+    Simulacion.arrayDeNodoSema.clear()
   }
   
   def keyTyped(x: KeyEvent) = {}

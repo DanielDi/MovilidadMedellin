@@ -124,7 +124,7 @@ object Simulacion extends Runnable {
     cMotos = 0
     cMotoTaxis = 0
     
-    while (arrayDeVehiculos.length < totalVehiculos) {
+    while (arrayDeVehiculos.length < 2) {
   	  var r = Random.nextInt(5)
   		var posiciones = genPosiciones()
   	  

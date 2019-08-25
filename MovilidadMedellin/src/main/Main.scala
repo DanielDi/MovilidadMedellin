@@ -24,6 +24,7 @@ object Main extends App {
 	  Simulacion.crearGrafo
 	  Simulacion.hilo = new Thread(Simulacion)
     Simulacion.crearVehiculos()
+    Simulacion.crearSemaforo()
     Simulacion.iniciar
   }
     
