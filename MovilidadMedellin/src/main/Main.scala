@@ -2,12 +2,17 @@ package main
 
 import manejoJSON.ManejoJSON
 import movil.Vehiculo
+import org.neo4j.driver.v1._
+import scala.collection.mutable.ArrayBuffer
+
+import punto.Interseccion
+import punto.Via
 
 object Main extends App {
 
- // val ruta = "C:\\Users\\nclsc\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
+  val ruta = "C:\\Users\\nclsc\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
 //   val ruta = "C:\\Users\\Sebastian\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
-  val ruta = "C:\\Users\\MSI-PC\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
+//  val 7ruta = "C:\\Users\\MSI-PC\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
 //  val ruta = "C:\\Users\\DELL\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
   
   val archivoParametros = "parametros.json"
@@ -27,8 +32,18 @@ object Main extends App {
     Simulacion.crearVehiculos()
     Simulacion.crearSemaforo()
     Simulacion.iniciar
+    
   }
     
-    def llamar = manejoJSON.escribirArchivoResultados(ruta + archivoResultados)
+  def llamar = manejoJSON.escribirArchivoResultados(ruta + archivoResultados)
     
 }
+
+
+
+
+
+
+
+
+
