@@ -22,9 +22,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import org.jfree.data.general.DatasetGroup
 import sun.management.GarbageCollectorImpl
+import java.awt.geom.Rectangle2D
+import java.awt.Shape
 
 object Grafico extends KeyListener{
   var estadoThread = true                //auxiliar para verificar si el hilo esta corriendo
+  
+  val shapeCam:Shape = new Rectangle2D.Double(-2, -5, 10, 10)
   
   val dataset = new XYSeriesCollection()
     
@@ -62,6 +66,7 @@ object Grafico extends KeyListener{
       cam.add(x.x, x.y)
       dataset.addSeries(cam)
       render.setSeriesPaint(n,Color.BLUE)
+      render.setSeriesShape(n, shapeCam)
       n+=1
     })
     
@@ -125,6 +130,7 @@ object Grafico extends KeyListener{
     Simulacion.arrayDeSemaforos.clear()
     Simulacion.arrayDeNodoSema.clear()
     Simulacion.camaras.clear()
+    Simulacion.comparendos.clear()
   }
   
   def keyTyped(x: KeyEvent) = {}
@@ -133,6 +139,7 @@ object Grafico extends KeyListener{
     var key = e.getKeyCode();
     if(key == KeyEvent.VK_F5){
       estadoThread = true
+      
       if(dataset.getSeriesCount != numVias) removerVehiculos
       Main.iniciar()
     }
@@ -145,6 +152,7 @@ object Grafico extends KeyListener{
         Simulacion.hilo.resume()
         estadoThread = true
       }
+      
     }
   }
 }

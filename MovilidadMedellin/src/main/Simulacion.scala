@@ -300,14 +300,14 @@ object Simulacion extends Runnable {
       new Via(agua, santafe, 60, TipoVia("Calle"), Sentido.dobleVia, "12S", Some("80"),None),   
       new Via(viva, pqEnv, 60, TipoVia("Calle"), Sentido.dobleVia, "37S", Some("37S"),None), 
       new Via(viva, gu_37S, 60, TipoVia("Calle"), Sentido.dobleVia, "63", Some("37S"),None))
-      new CamaraFotoDeteccion(arrayDeVias.last, 2000)
-      new CamaraFotoDeteccion(arrayDeVias(0), 1000)
-      new CamaraFotoDeteccion(arrayDeVias(50), 2000)
-      new CamaraFotoDeteccion(arrayDeVias(20), 2000)
-      new CamaraFotoDeteccion(arrayDeVias(15), 2000)
-      new CamaraFotoDeteccion(arrayDeVias(5), 2000)
-      new CamaraFotoDeteccion(arrayDeVias(41), 2000)
-      new CamaraFotoDeteccion(arrayDeVias(30), 2000)
+      new CamaraFotoDeteccion(arrayDeVias.last, 20)
+      new CamaraFotoDeteccion(arrayDeVias(0), 10)
+      new CamaraFotoDeteccion(arrayDeVias(50), 20)
+      new CamaraFotoDeteccion(arrayDeVias(20), 20)
+      new CamaraFotoDeteccion(arrayDeVias(15), 20)
+      new CamaraFotoDeteccion(arrayDeVias(5), 20)
+      new CamaraFotoDeteccion(arrayDeVias(41), 20)
+      new CamaraFotoDeteccion(arrayDeVias(30), 20)
   }
   
 }

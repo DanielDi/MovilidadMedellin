@@ -38,7 +38,6 @@ class ManejoJSON {
     
     var longitudPromedio: Double = s.arrayDeVias.map(_.distancia).sum / s.arrayDeVias.length
     
-    
     //vehiculos en intersección
     var promedioOrigen: Double = s.arrayDeVehiculos.length / s.arrayDeIntersecciones.length.toDouble
     var promedioDestino: Double = s.arrayDeVehiculos.length / s.arrayDeIntersecciones.length.toDouble
@@ -100,3 +99,5 @@ class ManejoJSON {
     pw.close
   }
 }
+
+// promedioPorcentaje Exceso = Simulacion.comparendos.map(p => (p.vel.magnitud-p.vMax)*100/p.vMax).reduce(_+_)/Simulacion.comparendos.lenght
