@@ -6,6 +6,7 @@ import scala.collection.mutable.ArrayBuffer
 import punto._
 import main.{Simulacion => s}
 import movil._
+import semaforo._
 
 
 object Connection {
@@ -191,5 +192,58 @@ object Connection {
     session.close()
     driver.close()
   }
+   
+   def cargarSemaforos() {
+     val (driver, session) = getSession()
+     val script = """MATCH(s:Semaforo)-[:ESTA_EN]->(i:Interseccion)
+                     RETURN s, i"""
+     val result = session.run(script)
+     while(result.hasNext()) {
+       val values = result.next().values()
+       val semaforo = values.get(0)
+       val inter = values.get(1)
+       
+       val viaId = semaforo.get("ubicacion").asInt()
+       val tiempoV = semaforo.get("tiempoV").asInt()
+       val tiempoA = semaforo.get("tiempoA").asInt()
+       val estado = semaforo.get("estado").asString()
+       
+       val xI = inter.get("xI").asDouble()
+       val yI = inter.get("yI").asDouble()
+       
+       val intersecc = Simulacion.arrayDeIntersecciones.filter(i => {i.xI==xI && i.yI==yI })(0)
+       val via = Simulacion.arrayDeVias.filter(v => v.id == viaId)(0)
+       Simulacion.arrayDeSemaforos += Semaforo(via, intersecc)(tiempoV, tiempoA)         
+     }
+    session.close()
+    driver.close()
+       
+   }
+   
+   
+   def cargarNodos() {
+     val (driver, session) = getSession()
+     val script = """MATCH(n:NodoSema)-[:TIENE]->(i:Interseccion)
+                     RETURN n, i"""
+     
+     val result = session.run(script)
+     while (result.hasNext()) {
+      val values = result.next().values()
+      val nodo = values.get(0)
+      val inter = values.get(1)
+      
+      val xI = inter.get("xI").asDouble()
+      val yI = inter.get("yI").asDouble()
+      
+      val intersecc = Simulacion.arrayDeIntersecciones.filter(i => {i.xI==xI && i.yI==yI })(0)
+      val nodoActual = NodoSemaforo(intersecc)
+      nodoActual.auxPos = nodo.get("pos").asInt()
+      nodoActual.auxT = nodo.get("tiempo").asInt()
+      nodoActual.arraySemaforo = Simulacion.arrayDeSemaforos.filter(semaforo => semaforo.ubicacion == intersecc)
+     }
+     
+     session.close()
+     driver.close()   
+   }
    
 }
