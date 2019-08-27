@@ -105,7 +105,7 @@ object Connection {
      s.arrayDeNodoSema.foreach(semaNodo => {
       
        val script0 = s"""match(I:Interseccion {xI: ${semaNodo.inter.xI}, yI: ${semaNodo.inter.yI}})
-                         create(:NodoSema {pos: ${semaNodo.auxPos}, tiempo: ${semaNodo.auxT}})
+                         create(:NodoSema {pos: ${semaNodo.auxPos}, tiempo: ${semaNodo.auxT}})-[:TIENE]->(I)
          """
        val result0 = session.run(script0) 
        
