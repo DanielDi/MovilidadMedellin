@@ -23,7 +23,7 @@ object Connection {
   
   def saveInterseccion() = {
 	  val (driver, session) = getSession()
-    val script = s"""MATCH (n1)-[r:VIA]-(n2)
+    val script = s"""MATCH (n1)-[r:VIA]->(n2)
                      return n1, r , n2"""
     val result = session.run(script)
     
@@ -101,31 +101,30 @@ object Connection {
   
   def saveSemaforos() = {
     val (driver, session) = getSession()
-    s.arrayDeSemaforos.foreach(sema => {
-      val tiempoA = sema.tiempoA
-      val tiempoV = sema.tiempoV
-      val estado = sema.estado
-      val ubicacion = sema.ubicacion
-      val via = sema.via
-      println("AZOPOTAMADRE")
-      val inter = if(via.interO.x == ubicacion.xI && via.interO.y == ubicacion.yI) via.interF else via.interO
-      val script = s"""match(I:Interseccion {xI: ${inter.xI}, yI: ${inter.yI} })
-                        match(U:Interseccion {xI: ${ubicacion.xI}, yI: ${ubicacion.yI} })
-                        create(s:Semaforo {estado: '$estado', ubicacion: '${ubicacion.nombre}', tiempoA: $tiempoA, tiempoV: $tiempoV})
-                        create(s)-[r:CONTRARIO_A]->(I)
-                        create(s)-[:ESTA_EN]->(U)
-                        """
-      val result = session.run(script)
-    })
+    
+     s.arrayDeNodoSema.foreach(semaNodo => {
+      
+       val script0 = s"""match(I:Interseccion {xI: ${semaNodo.inter.xI}, yI: ${semaNodo.inter.yI}})
+                         create(:NodoSema {pos: ${semaNodo.auxPos}, tiempo: ${semaNodo.auxT}})
+         """
+       val result0 = session.run(script0) 
+       
+      semaNodo.arraySemaforo.foreach(sema => {
+        val tiempoA = sema.tiempoA
+        val tiempoV = sema.tiempoV
+        val estado = sema.estado
+        val via = sema.via.id  
+      
+        val ubicacion = semaNodo.inter
+        val script = s"""match(I:Interseccion {xI: ${semaNodo.inter.xI}, yI: ${semaNodo.inter.yI}})
+            create(s:Semaforo {estado: '$estado', ubicacion: $via, tiempoA: $tiempoA, tiempoV: $tiempoV})-[:ESTA_EN]->(I)
+          """       
+        val result = session.run(script)  
+        })     
+      }) 
+      
     session.close()
     driver.close()
-    
-  }
-  
-  
+      
+  } 
 }
-//match(U:Interseccion {xI: '${ubicacion.xI}', yI: '${ubicacion.yI}'})
-//                       match(I:Interseccion {xI: '${inter.xI}', yI: '${inter.yI}'})
-//                       create(s:Semaforo {estado: '$estado', tiempoA: '$tiempoA', tiempoV: '$tiempoV'})
-//                       create(s)-[r:CONTRARIO_A]->(I)
-//                       create(s)-[:ESTA_EN]->(U)

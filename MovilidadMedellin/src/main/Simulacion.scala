@@ -81,11 +81,12 @@ object Simulacion extends Runnable {
                                  Semaforo(via,via.interO)(genTVerde(),tAmarillo)
                                  Semaforo(via,via.interF)(genTVerde(),tAmarillo)
                                 }else Semaforo(via,via.interF)(genTVerde(),tAmarillo))
+                                 
    arrayDeSemaforos.foreach(sema => if(arrayDeNodoSema.filter(_.inter == sema.ubicacion).size == 0){
                                     var nodo = NodoSemaforo(sema.ubicacion)
                                     nodo.arraySemaforo += sema
                                     }else arrayDeNodoSema.find(_.inter == sema.ubicacion).get.arraySemaforo += sema)
-                                    
+                                  
   }
   
   

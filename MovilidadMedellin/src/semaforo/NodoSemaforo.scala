@@ -6,7 +6,7 @@ import main.Simulacion
 
 case class NodoSemaforo(val inter: Interseccion) {
   Simulacion.arrayDeNodoSema += this
- 
+  
   val arraySemaforo= ArrayBuffer[Semaforo]()
 
   var auxPos = 0

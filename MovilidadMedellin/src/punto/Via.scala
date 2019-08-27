@@ -2,11 +2,13 @@ package punto
 
 import main.Simulacion
 
-class Via(var interO: Interseccion,var interF: Interseccion,var velocidad: Int, 
+case class Via(var interO: Interseccion,var interF: Interseccion,var velocidad: Int, 
     var tipoVia: TipoVia, var sentido: Sentido,var num: String, var nom: Option[String], var camara: Option[CamaraFotoDeteccion])
 extends Recta{
   
   Simulacion.arrayDeVias += this
+  Simulacion.arrayDeVias  = Simulacion.arrayDeVias.distinct
+  val id = Simulacion.arrayDeVias.size
   
   var origen= interO
   var fin= interF

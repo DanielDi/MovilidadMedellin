@@ -6,7 +6,7 @@ case class Interseccion(var xI: Double, var yI: Double, var nombre: Option[Strin
 extends Punto(xI,yI) {
   
   Simulacion.arrayDeIntersecciones.append(this)
-  Simulacion.arrayDeIntersecciones.distinct
+  Simulacion.arrayDeIntersecciones = Simulacion.arrayDeIntersecciones.distinct
   
   def this(x:Double,y:Double){
     this(x,y,None)
