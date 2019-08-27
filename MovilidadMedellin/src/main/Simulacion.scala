@@ -48,9 +48,9 @@ object Simulacion extends Runnable {
   
   def run() {
     arrayDeNodoSema.foreach(_.arraySemaforo(0).estado = "Verde")
-    Connection.saveVehiculo()
-    Connection.saveViaje()
-    Connection.saveSemaforos()
+//    Connection.saveVehiculo()
+//    Connection.saveViaje()
+//    Connection.saveSemaforos()
     
     while(!(Simulacion.arrayDeViajes.map(_.path)).filter(!_.isEmpty).isEmpty) {
       

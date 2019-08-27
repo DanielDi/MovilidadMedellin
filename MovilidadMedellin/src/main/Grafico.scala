@@ -24,6 +24,7 @@ import org.jfree.data.general.DatasetGroup
 import sun.management.GarbageCollectorImpl
 import java.awt.geom.Rectangle2D
 import java.awt.Shape
+import main.{Connection =>c}
 
 object Grafico extends KeyListener{
   var estadoThread = true                //auxiliar para verificar si el hilo esta corriendo
@@ -151,8 +152,25 @@ object Grafico extends KeyListener{
       else {
         Simulacion.hilo.resume()
         estadoThread = true
-      }
-      
+      } 
+    }else if(key == KeyEvent.VK_F2){
+      Simulacion.hilo.suspend()
+      c.saveVehiculo()
+      c.saveViaje()
+      c.saveSemaforos()
+      c.saveComparendos()
+      println("COMPARENDOS", Simulacion.comparendos.length)
+      Simulacion.hilo.resume()
+//      estadoThread = true
+    }else if (key == KeyEvent.VK_F1){
+     Simulacion.hilo.suspend()
+    Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
+    Simulacion.arrayDeVehiculos.clear()
+    Simulacion.arrayDeViajes.clear()
+//    Simulacion.arrayDeSemaforos.clear()
+//    Simulacion.arrayDeNodoSema.clear()
+    c.cargarVehiculos()
+    Simulacion.hilo.resume()
     }
   }
 }

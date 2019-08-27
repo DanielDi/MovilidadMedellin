@@ -7,6 +7,6 @@ import scala.util.Random
 class Carro(velocidad: Int, ac:Int) 
 extends Vehiculo(velocidad, ac) with MovimientoUniforme{
      
-  val placa = (List.fill(3)((65 + Random.nextInt(26)).toChar) ::: List.fill(3)(Random.nextInt(10))).mkString
+  var placa = (List.fill(3)((65 + Random.nextInt(26)).toChar) ::: List.fill(3)(Random.nextInt(10))).mkString
     
 }
