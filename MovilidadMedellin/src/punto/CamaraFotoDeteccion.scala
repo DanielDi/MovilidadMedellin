@@ -20,7 +20,7 @@ class CamaraFotoDeteccion(via: Via, distOrigen: Double) {
       var disAC = math.pow((math.pow((x - posX),2) + math.pow((y - posY),2)),0.5)
       var disBC = math.pow((math.pow((x - posF.xI),2) + math.pow((y - posF.yI),2)),0.5)
       if(disAB>=disAC && disAB > disBC){
-        if(vehiculo.vel.magnitud > via.velocidad){ new Comparendo(vehiculo,vehiculo.vel,via.velocidad)
+        if(vehiculo.vel.magnitud > via.velocidad){ new Comparendo(vehiculo,via.velocidad)
           println(s"SE HIZO FOTO MULTA: vehiculo = ${vehiculo.vel.magnitud} via = ${via.velocidad}")}
       }
   }

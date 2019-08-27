@@ -111,9 +111,8 @@ object Connection {
       val inter = if(via.interO.x == ubicacion.xI && via.interO.y == ubicacion.yI) via.interF else via.interO
       val script = s"""match(I:Interseccion {xI: ${inter.xI}, yI: ${inter.yI} })
                         match(U:Interseccion {xI: ${ubicacion.xI}, yI: ${ubicacion.yI} })
-                        create(s:Semaforo {estado: '$estado', ubicacion: '${ubicacion.nombre}', tiempoA: $tiempoA, tiempoV: $tiempoV})
-                        create(s)-[r:CONTRARIO_A]->(I)
-                        create(s)-[:ESTA_EN]->(U)
+                        create(I)<-[:CONTRARIO]-(s:Semaforo {estado: '$estado', ux: ${ubicacion.xI}, uy: ${ubicacion.yI}, ix: ${inter.xI}, iy: ${inter.yI}, tiempoA: $tiempoA, tiempoV: $tiempoV})-[:UBICADO_EN]->(U)
+                        
                         """
       val result = session.run(script)
     })
