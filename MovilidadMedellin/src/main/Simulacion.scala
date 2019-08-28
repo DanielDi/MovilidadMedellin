@@ -19,7 +19,7 @@ object Simulacion extends Runnable {
   val vehiculosMax = parametrosSimulacion.vehiculos.maximo
   val velMin = parametrosSimulacion.velocidad.minimo
   val velMax = parametrosSimulacion.velocidad.maximo
-   val acMin = parametrosSimulacion.aceleracion.minimo
+  val acMin = parametrosSimulacion.aceleracion.minimo
   val acMax = parametrosSimulacion.aceleracion.maximo
   val minTVerde = parametrosSimulacion.semaforos.minTiempoVerde
   val maxTVerde=  parametrosSimulacion.semaforos.maxTiempoVerde
@@ -125,7 +125,7 @@ object Simulacion extends Runnable {
     cMotoTaxis = 0
     
     
-    while (arrayDeVehiculos.length < 3) {
+    while (arrayDeVehiculos.length < totalVehiculos) {
   	  var r = Random.nextInt(5)
   		var posiciones = genPosiciones()
   	  
