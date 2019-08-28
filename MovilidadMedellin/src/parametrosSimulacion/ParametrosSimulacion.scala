@@ -1,6 +1,6 @@
 package parametrosSimulacion
 
 case class ParametrosSimulacion(dt: Int, tRefresh: Int, vehiculos: Vehiculos, velocidad: Velocidad, 
-    proporciones: Proporciones, aceleracion: Aceleracion, distanciasFrenadoVehiculos: distanciasFrenadoVehiculos) {
+    proporciones: Proporciones, semaforos: Semaforos, aceleracion: Aceleracion, distanciasFrenadoVehiculos: distanciasFrenadoVehiculos) {
   
 }

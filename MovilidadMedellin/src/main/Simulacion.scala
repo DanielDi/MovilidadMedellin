@@ -19,13 +19,13 @@ object Simulacion extends Runnable {
   val vehiculosMax = parametrosSimulacion.vehiculos.maximo
   val velMin = parametrosSimulacion.velocidad.minimo
   val velMax = parametrosSimulacion.velocidad.maximo
-  val acMin = 20
-  val acMax = 50
-  val minTVerde = 50
-  val maxTVerde=  100
-  val tAmarillo = 3
-  val XSemaforoF = 400
-  val XSemaAmaC = 200
+  val acMin = parametrosSimulacion.aceleracion.minimo
+  val acMax = parametrosSimulacion.aceleracion.maximo
+  val minTVerde = parametrosSimulacion.semaforos.minTiempoVerde
+  val maxTVerde=  parametrosSimulacion.semaforos.maxTiempoVerde
+  val tAmarillo = parametrosSimulacion.semaforos.tiempoAmarillo
+  val XSemaforoF = parametrosSimulacion.distanciasFrenadoVehiculos.XSemaforoFrenar
+  val XSemaAmaC = parametrosSimulacion.distanciasFrenadoVehiculos.XSemaforoAmarilloContinuar
 
   var propCarros = parametrosSimulacion.proporciones.carros
   var propMotos = parametrosSimulacion.proporciones.motos
