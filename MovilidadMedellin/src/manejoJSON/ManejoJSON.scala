@@ -82,6 +82,10 @@ class ManejoJSON {
     var distanciaMax = arrayDistancias.max.toInt
     var distanciaPromedio = arrayDistancias.reduce(_ + _) / arrayDistancias.length
       
+    //Comparendos
+    var cantidad = s.comparendos.length
+    var promedioPorcentajeExceso = s.comparendos.map(p => (p.vel-p.vMax)*100/p.vMax).reduce(_ + _)/cantidad
+    
     var vehiculos = new VehiculosR(s.totalVehiculos, s.cCarros, s.cMotos, s.cBuses, s.cCamiones, s.cMotoTaxis)
     var vehiculosInterseccion = new VehiculosInterseccion(promedioOrigen, promedioDestino, sinOrigen, sinDestino)
     var mallaVial = new MallaVial(s.arrayDeVias.length, s.arrayDeIntersecciones.length, viasUnSentido, viasDobleSentido, 
@@ -89,7 +93,8 @@ class ManejoJSON {
     var tiempos = new Tiempos(s.t, tiempoReal)
     var velocidades = new Velocidades(velocidadMinima, velocidadMaxima, velocidadPromedio)
     var distancias = new Distancias(distanciaMin, distanciaMax, distanciaPromedio)
-    var resultadosSimulaciones = new ResultadosSimulacion(vehiculos, mallaVial, tiempos, velocidades, distancias)
+    var comparendos = new Comparendos(cantidad,promedioPorcentajeExceso)
+    var resultadosSimulaciones = new ResultadosSimulacion(vehiculos, mallaVial, tiempos, velocidades, distancias,comparendos)
     
     //Transformamos la instancia ResultadosSimulacion en un String
     var jsonString = write(resultadosSimulaciones)
