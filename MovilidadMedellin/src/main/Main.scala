@@ -11,9 +11,9 @@ import punto.Via
 object Main extends App {
 
 //  val ruta = "C:\\Users\\nclsc\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
-   val ruta = "C:\\Users\\Sebastian\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
+//   val ruta = "C:\\Users\\Sebastian\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
 //  val ruta = "C:\\Users\\MSI-PC\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
-//  val ruta = "C:\\Users\\DELL\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
+  val ruta = "C:\\Users\\DELL\\git\\MovilidadMedellin\\MovilidadMedellin\\src\\"
   
   val archivoParametros = "parametros.json"
   val archivoResultados = "resultados.json"
@@ -25,12 +25,12 @@ object Main extends App {
   Simulacion.hilo = new Thread(Simulacion)
   Simulacion.iniciarVias
   Simulacion.crearGrafo
+  Simulacion.crearSemaforo()
   
   def iniciar(){
     Simulacion.t = 0
 	  Simulacion.hilo = new Thread(Simulacion)
     Simulacion.crearVehiculos()
-    Simulacion.crearSemaforo()
     Simulacion.iniciar
   }
    

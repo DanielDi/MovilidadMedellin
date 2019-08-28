@@ -165,10 +165,10 @@ object Grafico extends KeyListener{
       Simulacion.hilo.resume()
 //      estadoThread = true
     }else if (key == KeyEvent.VK_F1){
-   Simulacion.hilo.suspend()
-    Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
-    Simulacion.arrayDeVehiculos.clear()
-    Simulacion.arrayDeViajes.clear()
+//   Simulacion.hilo.suspend()
+//    Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
+//    Simulacion.arrayDeVehiculos.clear()
+//    Simulacion.arrayDeViajes.clear()
 //    Simulacion.arrayDeSemaforos.clear()
 //    Simulacion.arrayDeNodoSema.clear()
     c.cargarVehiculos()
