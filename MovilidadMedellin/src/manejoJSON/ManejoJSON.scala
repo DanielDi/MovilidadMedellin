@@ -85,7 +85,7 @@ class ManejoJSON {
     
     //Comparendos
     var cantidad = s.comparendos.length
-    var promedioPorcentajeExceso = s.comparendos.map(p => (p.vel.magnitud-p.vMax)*100/p.vMax).reduce(_ + _)/cantidad
+    var promedioPorcentajeExceso = s.comparendos.map(p => (p.vel-p.vMax)*100/p.vMax).reduce(_ + _)/cantidad
       
     var vehiculos = new VehiculosR(s.totalVehiculos, s.cCarros, s.cMotos, s.cBuses, s.cCamiones, s.cMotoTaxis)
     var vehiculosInterseccion = new VehiculosInterseccion(promedioOrigen, promedioDestino, sinOrigen, sinDestino)
