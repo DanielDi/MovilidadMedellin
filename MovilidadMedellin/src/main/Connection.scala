@@ -88,11 +88,7 @@ object Connection {
       val interFy= v.posFinal.yI
       val xi = v.posInicial.xI
       val yi = v.posInicial.yI
-      
-      println(s" Placa es: $placa")
-      println(s"InterIx: $interIx ------------------ InterIy: $interIy")
-      println(s"InterFx: $interFx ------------------ InterFy: $interFy")
-      println(s"x: $xi ------------------ y: $yi")
+     
     	val script = s"""match(v:Vehiculo {placa: '$placa'})
     	                 create(:Viaje {placa: '$placa', interIx: $interIx ,interIy: $interIy ,interFx: $interFx ,interFy: $interFy , xI: $xi , yI: $yi })-[:RECORRIDO_DE]->(v)"""
       val result = session.run(script)
@@ -170,16 +166,13 @@ object Connection {
       val interFy = viaje.get("interFy").asDouble()
       val xI = viaje.get("xI").asDouble()
       val yI = viaje.get("yI").asDouble()
-      
-      println(s" Placa es: $placa")
-      println(s"InterIx: $interIx _____________ InterIy: $interIy")
-      println(s"InterFx: $interFx _____________ InterFy: $interFy")
-      println(s"x: $xI ------------------ y: $yI")
+     
       
       val interI = s.arrayDeIntersecciones.filter(i => (i.xI == interIx) && (i.yI == interIy))(0)
       val interF = s.arrayDeIntersecciones.filter(i => (i.xI == interFx) && (i.yI == interFy))(0)
       val viajeV= Viaje(vehiculo)(interI,interF)
       viajeV.posInicial = Interseccion(xI,yI,None)
+      s.arrayDeIntersecciones = s.arrayDeIntersecciones.filter(i => i != viajeV.posInicial)
       s.arrayDeViajes += viajeV
     }
   }

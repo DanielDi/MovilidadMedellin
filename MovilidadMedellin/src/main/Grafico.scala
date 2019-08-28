@@ -124,7 +124,6 @@ object Grafico extends KeyListener{
   }
   
   def removerVehiculos{
-    println("hola")
     Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
     Simulacion.arrayDeVehiculos.clear()
     Simulacion.arrayDeViajes.clear()
