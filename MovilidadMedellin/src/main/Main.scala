@@ -25,12 +25,12 @@ object Main extends App {
   Simulacion.hilo = new Thread(Simulacion)
   Simulacion.iniciarVias
   Simulacion.crearGrafo
-  Simulacion.crearSemaforo()
   
   def iniciar(){
     Simulacion.t = 0
 	  Simulacion.hilo = new Thread(Simulacion)
     Simulacion.crearVehiculos()
+    Simulacion.crearSemaforo()
     Simulacion.iniciar
   }
    
