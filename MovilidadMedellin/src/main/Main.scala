@@ -32,7 +32,13 @@ object Main extends App {
     Simulacion.crearVehiculos()
     Simulacion.crearSemaforo()
     Simulacion.iniciar
-    
+  }
+   
+  def iniciarCargado(){
+    Simulacion.t = 0
+	  Simulacion.crearGrafo
+	  Simulacion.hilo = new Thread(Simulacion)
+    Simulacion.iniciar
   }
     
   def llamar = manejoJSON.escribirArchivoResultados(ruta + archivoResultados)

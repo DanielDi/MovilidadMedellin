@@ -120,17 +120,16 @@ object Grafico extends KeyListener{
     case v: Carro => Color.GREEN
     case v: Moto => Color.MAGENTA
     case v: MotoTaxi => Color.YELLOW
+    case _ => Color.WHITE
   }
   
   def removerVehiculos{
-    Simulacion.arrayDeIntersecciones.clear()
+    println("hola")
     Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
     Simulacion.arrayDeVehiculos.clear()
-    Simulacion.arrayDeVias.clear()
     Simulacion.arrayDeViajes.clear()
     Simulacion.arrayDeSemaforos.clear()
     Simulacion.arrayDeNodoSema.clear()
-    Simulacion.camaras.clear()
     Simulacion.comparendos.clear()
   }
   
@@ -141,7 +140,11 @@ object Grafico extends KeyListener{
     if(key == KeyEvent.VK_F5){
       estadoThread = true
       
-      if(dataset.getSeriesCount != numVias) removerVehiculos
+      if(dataset.getSeriesCount != numVias){
+        removerVehiculos
+        c.reinicarDb()
+      }
+      
       Main.iniciar()
     }
     else if(key == KeyEvent.VK_F6){
@@ -163,14 +166,17 @@ object Grafico extends KeyListener{
       Simulacion.hilo.resume()
 //      estadoThread = true
     }else if (key == KeyEvent.VK_F1){
-     Simulacion.hilo.suspend()
+   Simulacion.hilo.suspend()
     Simulacion.arrayDeVehiculos.foreach(p => dataset.removeSeries(numVias))
     Simulacion.arrayDeVehiculos.clear()
     Simulacion.arrayDeViajes.clear()
 //    Simulacion.arrayDeSemaforos.clear()
 //    Simulacion.arrayDeNodoSema.clear()
     c.cargarVehiculos()
-    Simulacion.hilo.resume()
+    c.cargarSemaforos()
+    c.cargarNodos()
+    c.cargarComparendo()
+    Main.iniciarCargado()
     }
   }
 }

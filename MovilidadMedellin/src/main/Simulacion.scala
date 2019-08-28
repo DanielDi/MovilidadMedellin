@@ -14,7 +14,7 @@ object Simulacion extends Runnable {
   
   var t = 0
   var dt = parametrosSimulacion.dt
-  var tRefresh = parametrosSimulacion.tRefresh
+  var tRefresh = 50//parametrosSimulacion.tRefresh
   val vehiculosMin = parametrosSimulacion.vehiculos.minimo
   val vehiculosMax = parametrosSimulacion.vehiculos.maximo
   val velMin = parametrosSimulacion.velocidad.minimo
@@ -47,18 +47,16 @@ object Simulacion extends Runnable {
   var camaras = ArrayBuffer[CamaraFotoDeteccion]()
   
   def run() {
-    arrayDeNodoSema.foreach(_.arraySemaforo(0).estado = "Verde")
 //    Connection.saveVehiculo()
 //    Connection.saveViaje()
 //    Connection.saveSemaforos()
     
     while(!(Simulacion.arrayDeViajes.map(_.path)).filter(!_.isEmpty).isEmpty) {
       
-      arrayDeNodoSema.foreach(_.cambioSemaforo())  
+      arrayDeNodoSema.foreach(_.cambioSemaforo())
       arrayDeViajes.foreach(_.aumentarPosc(dt))
       this.t += dt
       Grafico.graficarVehiculos(arrayDeVehiculos)
-      
       Thread.sleep(tRefresh)
     }
     Main.llamar
@@ -86,7 +84,8 @@ object Simulacion extends Runnable {
                                     var nodo = NodoSemaforo(sema.ubicacion)
                                     nodo.arraySemaforo += sema
                                     }else arrayDeNodoSema.find(_.inter == sema.ubicacion).get.arraySemaforo += sema)
-                                  
+   
+   arrayDeNodoSema.foreach(_.arraySemaforo(0).estado = "Verde")                                 
   }
   
   
@@ -128,12 +127,12 @@ object Simulacion extends Runnable {
     cMotos = 0
     cMotoTaxis = 0
     
-    var bus = new Bus(genVelocidad() ,genTasaAc())
-    arrayDeVehiculos += bus
-    arrayDeViajes += Viaje(bus)(arrayDeIntersecciones(1).copy(), arrayDeIntersecciones(33).copy())
+//    var bus = new Bus(genVelocidad() ,genTasaAc())
+//    arrayDeVehiculos += bus
+//    arrayDeViajes += Viaje(bus)(arrayDeIntersecciones(1).copy(), arrayDeIntersecciones(33).copy())
     
     
-    while (arrayDeVehiculos.length < totalVehiculos) {
+    while (arrayDeVehiculos.length < 3) {
   	  var r = Random.nextInt(5)
   		var posiciones = genPosiciones()
   	  
